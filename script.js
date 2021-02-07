@@ -1,6 +1,6 @@
 // Basic 3x3 field with obstacle in the center.
 // Start cell at top left, end at bottom right
-const field = [
+const fieldArray = [
   {
     x: 1,
     y: 1,
@@ -42,10 +42,25 @@ const field = [
   },
 ];
 
-field.forEach(cell => cell.start && console.log(JSON.stringify(cell, 4, null)));
+const fieldEl = document.getElementById('field');
 
-field.forEach(
+fieldArray.forEach(item => {
+  const cell = document.createElement('li');
+  cell.id = `${item.x}${item.y}`;
+  cell.className = `${item.start ? ' start' : ''}${item.end ? ' end' : ''}${
+    item.obstacle ? ' obstacle' : ''
+  }`;
+  fieldEl.append(cell);
+});
+
+fieldArray.forEach(
+  cell => cell.start && console.log(JSON.stringify(cell, 4, null))
+);
+
+fieldArray.forEach(
   cell => cell.obstacle && console.log(JSON.stringify(cell, 4, null))
 );
 
-field.forEach(cell => cell.end && console.log(JSON.stringify(cell, 4, null)));
+fieldArray.forEach(
+  cell => cell.end && console.log(JSON.stringify(cell, 4, null))
+);

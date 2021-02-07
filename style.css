@@ -4,3 +4,31 @@
   padding: 0;
   border: none;
 }
+
+/* Field */
+#field {
+  display: grid;
+  width: 400px;
+  height: 400px;
+  list-style: none;
+  grid-template-columns: repeat(3, auto);
+  grid-template-rows: repeat(3, auto);
+  column-gap: 2px;
+  row-gap: 2px;
+}
+
+li {
+  background-color: thistle;
+}
+
+.start {
+  background-color: turquoise;
+}
+
+.obstacle {
+  background-color: black;
+}
+
+.end {
+  background-color: tomato;
+}
