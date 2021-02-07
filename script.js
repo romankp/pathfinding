@@ -6,61 +6,71 @@ const fieldArray = [
   {
     x: 1,
     y: 1,
-    start: true,
+    type: 'start',
   },
   {
     x: 2,
     y: 1,
+    type: 'empty',
   },
   {
     x: 3,
     y: 1,
+    type: 'empty',
   },
   {
     x: 1,
     y: 2,
+    type: 'empty',
   },
   {
     x: 2,
     y: 2,
-    obstacle: true,
+    type: 'obstacle',
   },
   {
     x: 3,
     y: 2,
+    type: 'empty',
   },
   {
     x: 1,
     y: 3,
+    type: 'empty',
   },
   {
     x: 2,
     y: 3,
+    type: 'empty',
   },
   {
     x: 3,
     y: 3,
-    end: true,
+    type: 'target',
   },
 ];
 
-fieldArray.forEach(item => {
+// Some variables for the future
+const startCell = fieldArray.find(({ type }) => type === 'start');
+const targetCell = fieldArray.find(({ type }) => type === 'target');
+
+fieldArray.forEach(({ x, y, type }) => {
   const cell = document.createElement('li');
-  cell.id = `${item.x}${item.y}`;
-  cell.className = `${item.start ? ' start' : ''}${item.end ? ' end' : ''}${
-    item.obstacle ? ' obstacle' : ''
-  }`;
+  cell.id = `${x}${y}`;
+  cell.className = `${type === 'start' ? ' start' : ''}${
+    type === 'target' ? ' target' : ''
+  }${type === 'obstacle' ? ' obstacle' : ''}`;
   fieldEl.append(cell);
 });
 
-fieldArray.forEach(
-  cell => cell.start && console.log(JSON.stringify(cell, 4, null))
-);
+// fieldArray.forEach(
+//   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
+// );
 
-fieldArray.forEach(
-  cell => cell.obstacle && console.log(JSON.stringify(cell, 4, null))
-);
+// fieldArray.forEach(
+//   cell => cell.obstacle && console.log(JSON.stringify(cell, 4, null))
+// );
 
-fieldArray.forEach(
-  cell => cell.end && console.log(JSON.stringify(cell, 4, null))
-);
+// fieldArray.forEach(
+//   cell => cell.end && console.log(JSON.stringify(cell, 4, null))
+// );
