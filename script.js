@@ -1,3 +1,5 @@
+const fieldEl = document.getElementById('field');
+
 // Basic 3x3 field with obstacle in the center.
 // Start cell at top left, end at bottom right
 const fieldArray = [
@@ -41,8 +43,6 @@ const fieldArray = [
     end: true,
   },
 ];
-
-const fieldEl = document.getElementById('field');
 
 fieldArray.forEach(item => {
   const cell = document.createElement('li');
