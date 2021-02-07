@@ -54,14 +54,20 @@ const fieldArray = [
 const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
 
-fieldArray.forEach(({ x, y, type }) => {
-  const cell = document.createElement('li');
-  cell.id = `${x}${y}`;
-  cell.className = `${type === 'start' ? ' start' : ''}${
-    type === 'target' ? ' target' : ''
-  }${type === 'obstacle' ? ' obstacle' : ''}`;
-  fieldEl.append(cell);
-});
+// For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
+
+const renderField = fieldArray => {
+  fieldArray.forEach(({ x, y, type }) => {
+    const cell = document.createElement('li');
+    cell.id = `${x}${y}`;
+    cell.className = `${type === 'start' ? ' start' : ''}${
+      type === 'target' ? ' target' : ''
+    }${type === 'obstacle' ? ' obstacle' : ''}`;
+    fieldEl.append(cell);
+  });
+};
+
+renderField(fieldArray);
 
 // fieldArray.forEach(
 //   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
