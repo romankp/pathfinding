@@ -63,6 +63,13 @@ const returnX = (dimVal, workingVal) => {
   }
 };
 
+const returnY = (dimVal, workingVal) => {
+  if (workingVal - dimVal <= 0) {
+    return 1;
+  }
+  return Math.ceil(workingVal / dimVal);
+};
+
 const createFieldArray = dimVal => {
   const arrayLength = dimVal ** 2;
   const finalArray = [];
@@ -71,21 +78,21 @@ const createFieldArray = dimVal => {
       finalArray.push({
         id: i,
         x: returnX(dimVal, i),
-        y: 'test',
+        y: returnY(dimVal, i),
         type: 'start',
       });
     } else if (i === arrayLength) {
       finalArray.push({
         id: i,
         x: returnX(dimVal, i),
-        y: 'test',
+        y: returnY(dimVal, i),
         type: 'target',
       });
     } else {
       finalArray.push({
         id: i,
         x: returnX(dimVal, i),
-        y: 'test',
+        y: returnY(dimVal, i),
         type: 'empty',
       });
     }
