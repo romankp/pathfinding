@@ -50,16 +50,46 @@ const fieldArray = [
   },
 ];
 
+const returnX = (dimVal, workingVal) => {
+  const remainder = workingVal % dimVal;
+  // It's the last item in a row
+  if (remainder === 0) {
+    return dimVal;
+  }
+  for (let i = dimVal - 1; i > 0; i--) {
+    if (workingVal % i === 0) {
+      x = i;
+      i = 0;
+      return x;
+    }
+  }
+};
+
 const createFieldArray = dimVal => {
   const arrayLength = dimVal ** 2;
   const finalArray = [];
-  for (let i = 0; i < arrayLength; i++) {
-    if (i === 0) {
-      finalArray.push({ id: i, x: 'test', y: 'test', type: 'start' });
-    } else if (i === arrayLength - 1) {
-      finalArray.push({ id: i, x: 'test', y: 'test', type: 'target' });
+  for (let i = 1; i <= arrayLength; i++) {
+    if (i === 1) {
+      finalArray.push({
+        id: i,
+        x: returnX(dimVal, i),
+        y: 'test',
+        type: 'start',
+      });
+    } else if (i === arrayLength) {
+      finalArray.push({
+        id: i,
+        x: returnX(dimVal, i),
+        y: 'test',
+        type: 'target',
+      });
     } else {
-      finalArray.push({ id: i, x: 'test', y: 'test', type: 'empty' });
+      finalArray.push({
+        id: i,
+        x: returnX(dimVal, i),
+        y: 'test',
+        type: 'empty',
+      });
     }
   }
   return finalArray;
