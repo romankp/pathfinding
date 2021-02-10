@@ -51,9 +51,7 @@ const fieldArray = [
 ];
 
 const returnX = (dimVal, workingVal) => {
-  const remainder = workingVal % dimVal;
-  // It's the last item in a row
-  if (remainder === 0) {
+  if (workingVal % dimVal === 0) {
     return dimVal;
   }
   for (let i = dimVal - 1; i > 0; i--) {
