@@ -50,6 +50,23 @@ const fieldArray = [
   },
 ];
 
+const createFieldArray = dimVal => {
+  const arrayLength = dimVal ** 2;
+  const finalArray = [];
+  for (let i = 0; i < arrayLength; i++) {
+    if (i === 0) {
+      finalArray.push({ id: i, x: 'test', y: 'test', type: 'start' });
+    } else if (i === arrayLength - 1) {
+      finalArray.push({ id: i, x: 'test', y: 'test', type: 'target' });
+    } else {
+      finalArray.push({ id: i, x: 'test', y: 'test', type: 'empty' });
+    }
+  }
+  return finalArray;
+};
+
+console.log(createFieldArray(4));
+
 // Some variables for the future
 const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
