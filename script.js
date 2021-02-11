@@ -64,9 +64,6 @@ const returnX = (dimVal, workingVal) => {
 };
 
 const returnY = (dimVal, workingVal) => {
-  if (workingVal - dimVal <= 0) {
-    return 1;
-  }
   return Math.ceil(workingVal / dimVal);
 };
 
