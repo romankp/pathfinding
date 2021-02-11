@@ -1,55 +1,3 @@
-const fieldEl = document.getElementById('field');
-
-// Basic 3x3 field with obstacle in the center.
-// Start cell at top left, end at bottom right
-const fieldArray = [
-  {
-    x: 1,
-    y: 1,
-    type: 'start',
-  },
-  {
-    x: 2,
-    y: 1,
-    type: 'empty',
-  },
-  {
-    x: 3,
-    y: 1,
-    type: 'empty',
-  },
-  {
-    x: 1,
-    y: 2,
-    type: 'empty',
-  },
-  {
-    x: 2,
-    y: 2,
-    type: 'obstacle',
-  },
-  {
-    x: 3,
-    y: 2,
-    type: 'empty',
-  },
-  {
-    x: 1,
-    y: 3,
-    type: 'empty',
-  },
-  {
-    x: 2,
-    y: 3,
-    type: 'empty',
-  },
-  {
-    x: 3,
-    y: 3,
-    type: 'target',
-  },
-];
-
 const returnX = (dimVal, workingVal) => {
   if (workingVal % dimVal === 0) {
     return dimVal;
@@ -67,7 +15,7 @@ const returnY = (dimVal, workingVal) => {
   return Math.ceil(workingVal / dimVal);
 };
 
-const createFieldArray = dimVal => {
+const createFieldArray = (dimVal, obstacles) => {
   const arrayLength = dimVal ** 2;
   const finalArray = [];
   for (let i = 1; i <= arrayLength; i++) {
@@ -85,6 +33,13 @@ const createFieldArray = dimVal => {
         y: returnY(dimVal, i),
         type: 'target',
       });
+    } else if (obstacles.some(pos => pos === i)) {
+      finalArray.push({
+        id: i,
+        x: returnX(dimVal, i),
+        y: returnY(dimVal, i),
+        type: 'obstacle',
+      });
     } else {
       finalArray.push({
         id: i,
@@ -97,14 +52,16 @@ const createFieldArray = dimVal => {
   return finalArray;
 };
 
-console.log(createFieldArray(4));
+// Describe obstacle positions and construct field array
+const obstacles = [7, 11];
+const fieldArray = createFieldArray(4, obstacles);
 
 // Some variables for the future
 const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
 
 // For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
-
+const fieldEl = document.getElementById('field');
 const renderField = fieldArray => {
   fieldArray.forEach(({ x, y, type }) => {
     const cell = document.createElement('li');

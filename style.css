@@ -18,8 +18,8 @@ body {
   width: 400px;
   height: 400px;
   list-style: none;
-  grid-template-columns: repeat(3, auto);
-  grid-template-rows: repeat(3, auto);
+  grid-template-columns: repeat(4, auto);
+  grid-template-rows: repeat(4, auto);
   column-gap: 2px;
   row-gap: 2px;
 }
