@@ -51,6 +51,7 @@ const targetCell = fieldArray.find(({ type }) => type === 'target');
 
 // For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
 const fieldEl = document.getElementById('field');
+
 const renderField = fieldArray => {
   fieldArray.forEach(({ x, y, type }) => {
     const cell = document.createElement('li');
@@ -63,6 +64,11 @@ const renderField = fieldArray => {
 };
 
 renderField(fieldArray);
+
+console.log(fieldArray);
+
+const latVal = 7;
+const diagVal = 10;
 
 // fieldArray.forEach(
 //   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
