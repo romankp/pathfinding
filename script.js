@@ -15,38 +15,27 @@ const returnY = (dimVal, workingVal) => {
   return Math.ceil(workingVal / dimVal);
 };
 
+const returnCoordObj = (i, dimVal, type) => {
+  return {
+    id: i,
+    x: returnX(dimVal, i),
+    y: returnY(dimVal, i),
+    type: type,
+  };
+};
+
 const createFieldArray = (dimVal, obstacles) => {
   const arrayLength = dimVal ** 2;
   const finalArray = [];
   for (let i = 1; i <= arrayLength; i++) {
     if (i === 1) {
-      finalArray.push({
-        id: i,
-        x: returnX(dimVal, i),
-        y: returnY(dimVal, i),
-        type: 'start',
-      });
+      finalArray.push(returnCoordObj(i, dimVal, 'start'));
     } else if (i === arrayLength) {
-      finalArray.push({
-        id: i,
-        x: returnX(dimVal, i),
-        y: returnY(dimVal, i),
-        type: 'target',
-      });
+      finalArray.push(returnCoordObj(i, dimVal, 'target'));
     } else if (obstacles.some(pos => pos === i)) {
-      finalArray.push({
-        id: i,
-        x: returnX(dimVal, i),
-        y: returnY(dimVal, i),
-        type: 'obstacle',
-      });
+      finalArray.push(returnCoordObj(i, dimVal, 'obstacle'));
     } else {
-      finalArray.push({
-        id: i,
-        x: returnX(dimVal, i),
-        y: returnY(dimVal, i),
-        type: 'empty',
-      });
+      finalArray.push(returnCoordObj(i, dimVal, 'empty'));
     }
   }
   return finalArray;
