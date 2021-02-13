@@ -15,11 +15,26 @@ const returnY = (dimVal, workingVal) => {
   return Math.ceil(workingVal / dimVal);
 };
 
+const returnDistance = (dimVal, x, y) => {
+  const yDist = dimVal - y;
+  const xDist = dimVal - x;
+  if (dimVal === x) {
+    return yDist;
+  }
+  if (dimVal === y) {
+    return xDist;
+  }
+  return Math.hypot(yDist, xDist);
+};
+
 const returnCoordObj = (i, dimVal, type) => {
+  const x = returnX(dimVal, i);
+  const y = returnY(dimVal, i);
   return {
     id: i,
-    x: returnX(dimVal, i),
-    y: returnY(dimVal, i),
+    x: x,
+    y: y,
+    targetDistance: returnDistance(dimVal, x, y),
     type: type,
   };
 };
