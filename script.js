@@ -15,6 +15,7 @@ const returnY = (dimVal, workingVal) => {
   return Math.ceil(workingVal / dimVal);
 };
 
+// Returns distance of cell from target
 const returnDistance = (dimVal, x, y) => {
   const yDist = dimVal - y;
   const xDist = dimVal - x;
@@ -36,6 +37,8 @@ const returnCoordObj = (i, dimVal, type) => {
     y: y,
     targetDistance: returnDistance(dimVal, x, y),
     type: type,
+    checked: false,
+    from: null,
   };
 };
 
