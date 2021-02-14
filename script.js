@@ -2,9 +2,11 @@ const returnX = (dimVal, workingVal) => {
   if (workingVal % dimVal === 0) {
     return dimVal;
   }
+  return workingVal % dimVal;
   // TODO Fix this logic because it's working unexpectedly
+  console.log(workingVal % dimVal);
   for (let i = dimVal - 1; i > 0; i--) {
-    console.log(`${workingVal} ${i}`);
+    console.log(`${workingVal} ${i} ---> ${workingVal % i}`);
     if (workingVal % i === 0) {
       x = i;
       i = 0;
