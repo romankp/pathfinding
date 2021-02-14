@@ -86,20 +86,43 @@ console.log(`Target --> ${JSON.stringify(targetCell, null, 2)}`);
 
 // For the initial solution, we're assuming the start is top-left and target is bottom-right.
 // We're also assuming that the current field has no dead ends, for now!
+const returnMoveOptions = (startPos, dimVal) => {
+  const optionsArray = [];
+  if (startPos - dimVal - 1 >= 0) {
+    optionsArray.push(startPos - dimVal - 1);
+  }
+  if (startPos - dimVal >= 0) {
+    optionsArray.push(startPos - dimVal);
+  }
+  if (startPos - dimVal + 1 >= 0) {
+    optionsArray.push(startPos - dimVal + 1);
+  }
+  if (startPos - 1 >= 0) {
+    optionsArray.push(startPos - 1);
+  }
+  if (startPos + 1 >= 0) {
+    optionsArray.push(startPos + 1);
+  }
+  if (startPos + dimVal - 1 >= 0) {
+    optionsArray.push(startPos + dimVal - 1);
+  }
+  if (startPos + dimVal >= 0) {
+    optionsArray.push(startPos + dimVal);
+  }
+  if (startPos + dimVal + 1 >= 0) {
+    optionsArray.push(startPos + dimVal + 1);
+  }
+  return optionsArray;
+};
 
-const bulldozeThroughField = (fieldArray, startCell) => {
-  const moveOptions = fieldArray.filter(cell => {
-    if (
-      cell.type === 'empty' &&
-      (startCell.x + 1 === cell.x || startCell.y + 1 === cell.y)
-    ) {
-      return true;
-    }
-  });
+const bulldozeThroughField = (fieldArray, startCell, latDim) => {
+  const { id } = startCell;
+  const startPos = id - 1;
+  const moveOptions = returnMoveOptions(startPos, latDim);
   console.log(moveOptions);
 };
 
-bulldozeThroughField(fieldArray, startCell);
+bulldozeThroughField(fieldArray, startCell, latDim);
 
 // fieldArray.forEach(
 //   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
