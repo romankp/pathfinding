@@ -2,7 +2,9 @@ const returnX = (dimVal, workingVal) => {
   if (workingVal % dimVal === 0) {
     return dimVal;
   }
+  // TODO Fix this logic because it's working unexpectedly
   for (let i = dimVal - 1; i > 0; i--) {
+    console.log(`${workingVal} ${i}`);
     if (workingVal % i === 0) {
       x = i;
       i = 0;
@@ -60,12 +62,9 @@ const createFieldArray = (dimVal, obstacles) => {
 };
 
 // Describe obstacle positions and construct field array
+const latDim = 4;
 const obstacles = [7, 11];
-const fieldArray = createFieldArray(4, obstacles);
-
-// Some variables for the future
-const startCell = fieldArray.find(({ type }) => type === 'start');
-const targetCell = fieldArray.find(({ type }) => type === 'target');
+const fieldArray = createFieldArray(latDim, obstacles);
 
 // For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
 const fieldEl = document.getElementById('field');
@@ -85,8 +84,32 @@ renderField(fieldArray);
 
 console.log(fieldArray);
 
-const latVal = 7;
-const diagVal = 10;
+// The fun stuff
+const latVal = 1;
+const diagVal = Math.hypot(latVal, latVal);
+
+const startCell = fieldArray.find(({ type }) => type === 'start');
+const targetCell = fieldArray.find(({ type }) => type === 'target');
+
+console.log(`Start --> ${JSON.stringify(startCell, null, 2)}`);
+console.log(`Target --> ${JSON.stringify(targetCell, null, 2)}`);
+
+// For the initial solution, we're assuming the start is top-left and target is bottom-right.
+// We're also assuming that the current field has no dead ends, for now!
+
+const bulldozeThroughField = (fieldArray, startCell) => {
+  const moveOptions = fieldArray.filter(cell => {
+    if (
+      cell.type === 'empty' &&
+      (startCell.x + 1 === cell.x || startCell.y + 1 === cell.y)
+    ) {
+      return true;
+    }
+  });
+  console.log(moveOptions);
+};
+
+bulldozeThroughField(fieldArray, startCell);
 
 // fieldArray.forEach(
 //   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
