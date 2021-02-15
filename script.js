@@ -87,7 +87,8 @@ console.log(`Target --> ${JSON.stringify(targetCell, null, 2)}`);
 // For the initial solution, we're assuming the start is top-left and target is bottom-right.
 // We're also assuming that the current field has no dead ends, for now!
 
-// This is really ugly and has issues with "edge" detection, just bulldozing through
+// This is really ugly and has issues with "edge" detection, but just bulldozing
+// through to avoid having to check each field array item
 const returnArrayOptions = (startPos, dimVal) => {
   const optionsArray = [];
   if (startPos - dimVal - 1 >= 0) {
@@ -117,17 +118,14 @@ const returnArrayOptions = (startPos, dimVal) => {
   return optionsArray;
 };
 
+// Check that each field coordinate represented by the initial array of options
+// is within horizontal and vertical ranges of process cell
 const filterOptions = (optionsArray, fieldArray, processX, processY) => {
   const filteredArray = optionsArray.filter(pos => {
-    const x = fieldArray[pos].x;
-    const y = fieldArray[pos].y;
+    const { x, y } = fieldArray[pos];
     const withinXRange = x >= processX - 1 && x <= processX + 1;
     const withinYRange = y >= processY - 1 && y <= processY + 1;
-    console.log(`range ${withinXRange} - ${withinYRange}`);
-    if (withinXRange && withinYRange) {
-      return true;
-    }
-    return false;
+    return withinXRange && withinYRange ? true : false;
   });
   return filteredArray;
 };
