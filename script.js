@@ -133,11 +133,16 @@ const filterOptions = (optionsArray, fieldArray, processX, processY) => {
 const bulldozeThroughField = (fieldArray, startCell, latDim) => {
   const { id, x, y } = startCell;
   const startPos = id - 1;
+  const path = [startCell];
   const moveOptions = filterOptions(
     returnArrayOptions(startPos, latDim),
     fieldArray,
     x,
     y
+  );
+  console.log(moveOptions);
+  moveOptions.sort(
+    (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
   );
   console.log(moveOptions);
 };
