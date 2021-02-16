@@ -132,21 +132,28 @@ const filterOptions = (optionsArray, fieldArray, processX, processY) => {
 
 const bulldozeThroughField = (fieldArray, startCell, latDim) => {
   const { id, x, y } = startCell;
-  const startPos = id - 1;
+  // const startPos = id - 1;
   const path = [startCell];
-  const moveOptions = filterOptions(
-    returnArrayOptions(startPos, latDim),
-    fieldArray,
-    x,
-    y
-  );
-  console.log(moveOptions);
-  moveOptions.sort(
-    (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
-  );
-  path.push(fieldArray[moveOptions[0]]);
-  console.log(moveOptions);
-  console.log(path);
+  let targetReached = false;
+  while (!targetReached) {
+    const moveOptions = filterOptions(
+      // We want the id of the last item of the path array
+      // so we can find its position in the array
+      returnArrayOptions(path[path.length - 1].id - 1, latDim),
+      fieldArray,
+      x,
+      y
+    );
+    console.log(moveOptions);
+    moveOptions.sort(
+      (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
+    );
+    path.push(fieldArray[moveOptions[0]]);
+    // Forcing the while loop to stop for now
+    targetReached = true;
+    console.log(moveOptions);
+    console.log(path);
+  }
 };
 
 bulldozeThroughField(fieldArray, startCell, latDim);
