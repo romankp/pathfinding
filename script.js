@@ -144,7 +144,9 @@ const bulldozeThroughField = (fieldArray, startCell, latDim) => {
   moveOptions.sort(
     (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
   );
+  path.push(fieldArray[moveOptions[0]]);
   console.log(moveOptions);
+  console.log(path);
 };
 
 bulldozeThroughField(fieldArray, startCell, latDim);
