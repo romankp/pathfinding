@@ -89,39 +89,39 @@ console.log(`Target --> ${JSON.stringify(targetCell, null, 2)}`);
 
 // This is really ugly and has issues with "edge" detection, but just bulldozing
 // through to avoid having to check each field array item
-const returnArrayOptions = (startPos, dimVal) => {
-  const optionsArray = [];
+const returnOptionIDsArray = (startPos, dimVal) => {
+  const idArray = [];
   if (startPos - dimVal - 1 >= 0) {
-    optionsArray.push(startPos - dimVal - 1);
+    idArray.push(startPos - dimVal - 1);
   }
   if (startPos - dimVal >= 0) {
-    optionsArray.push(startPos - dimVal);
+    idArray.push(startPos - dimVal);
   }
   if (startPos - dimVal + 1 >= 0) {
-    optionsArray.push(startPos - dimVal + 1);
+    idArray.push(startPos - dimVal + 1);
   }
   if (startPos - 1 >= 0) {
-    optionsArray.push(startPos - 1);
+    idArray.push(startPos - 1);
   }
   if (startPos + 1 >= 0) {
-    optionsArray.push(startPos + 1);
+    idArray.push(startPos + 1);
   }
   if (startPos + dimVal - 1 >= 0) {
-    optionsArray.push(startPos + dimVal - 1);
+    idArray.push(startPos + dimVal - 1);
   }
   if (startPos + dimVal >= 0) {
-    optionsArray.push(startPos + dimVal);
+    idArray.push(startPos + dimVal);
   }
   if (startPos + dimVal + 1 >= 0) {
-    optionsArray.push(startPos + dimVal + 1);
+    idArray.push(startPos + dimVal + 1);
   }
-  return optionsArray;
+  return idArray;
 };
 
 // Check that each field coordinate represented by the initial array of options
 // is within horizontal and vertical ranges of process cell
-const filterOptions = (optionsArray, fieldArray, processX, processY) => {
-  const filteredArray = optionsArray.filter(pos => {
+const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
+  const filteredArray = idArray.filter(pos => {
     const { x, y } = fieldArray[pos];
     const withinXRange = x >= processX - 1 && x <= processX + 1;
     const withinYRange = y >= processY - 1 && y <= processY + 1;
@@ -136,10 +136,10 @@ const bulldozeThroughField = (fieldArray, startCell, latDim) => {
   const path = [startCell];
   let targetReached = false;
   while (!targetReached) {
-    const moveOptions = filterOptions(
+    const moveOptions = filterOptionIDs(
       // We want the id of the last item of the path array
       // so we can find its position in the array
-      returnArrayOptions(path[path.length - 1].id - 1, latDim),
+      returnOptionIDsArray(path[path.length - 1].id - 1, latDim),
       fieldArray,
       x,
       y
