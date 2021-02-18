@@ -53,7 +53,7 @@ const createFieldArray = (dimVal, obstacles) => {
 
 // Describe obstacle positions and construct field array
 const latDim = 4;
-const obstacles = [7, 11];
+const obstacles = [5, 7, 11];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
