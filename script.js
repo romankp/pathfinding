@@ -150,8 +150,6 @@ const bulldozeThroughField = (fieldArray, startCell, latDim) => {
     );
     path.push(fieldArray[moveOptions[0]]);
     // Forcing the while loop to stop for now
-
-    
     targetReached = true;
     console.log(moveOptions);
     console.log(path);
