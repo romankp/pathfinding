@@ -100,10 +100,11 @@ const returnOptionIDsArray = (startPos, dimVal) => {
   if (startPos - dimVal + 1 >= 0) {
     idArray.push(startPos - dimVal + 1);
   }
-  if (startPos - 1 >= 0) {
+  // Left and right of the position ID
+  if (startPos - 1 > 0) {
     idArray.push(startPos - 1);
   }
-  if (startPos + 1 >= 0) {
+  if (startPos + 1 > 0) {
     idArray.push(startPos + 1);
   }
   if (startPos + dimVal - 1 >= 0) {
@@ -115,6 +116,8 @@ const returnOptionIDsArray = (startPos, dimVal) => {
   if (startPos + dimVal + 1 >= 0) {
     idArray.push(startPos + dimVal + 1);
   }
+  console.log('returnOptionIDsArray -->');
+  console.log(idArray);
   return idArray;
 };
 
@@ -135,11 +138,12 @@ const bulldozeThroughField = (fieldArray, startCell, latDim) => {
   // const startPos = id - 1;
   const path = [startCell];
   let targetReached = false;
+  let testingLimit = 0;
   while (!targetReached) {
     const moveOptions = filterOptionIDs(
       // We want the id of the last item of the path array
       // so we can find its position in the array
-      returnOptionIDsArray(path[path.length - 1].id - 1, latDim),
+      returnOptionIDsArray(path[path.length - 1].id, latDim),
       fieldArray,
       x,
       y
@@ -148,12 +152,18 @@ const bulldozeThroughField = (fieldArray, startCell, latDim) => {
     moveOptions.sort(
       (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
     );
-    path.push(fieldArray[moveOptions[0]]);
+    if (moveOptions[0].type === 'target' || testingLimit >= 10) {
+      targetReached = true;
+    } else {
+      path.push(fieldArray[moveOptions[0]]);
+      testingLimit++;
+    }
+    
     // Forcing the while loop to stop for now
-    targetReached = true;
-    console.log(moveOptions);
-    console.log(path);
+    // targetReached = true;
+  //   console.log(moveOptions);
   }
+  console.log(path);
 };
 
 bulldozeThroughField(fieldArray, startCell, latDim);
