@@ -42,7 +42,7 @@ const createFieldArray = (dimVal, obstacles) => {
       finalArray.push(returnCoordObj(i, dimVal, 'start'));
     } else if (i === arrayLength) {
       finalArray.push(returnCoordObj(i, dimVal, 'target'));
-    } else if (obstacles.some(pos => pos === i)) {
+    } else if (obstacles.some((pos) => pos === i)) {
       finalArray.push(returnCoordObj(i, dimVal, 'obstacle'));
     } else {
       finalArray.push(returnCoordObj(i, dimVal, 'empty'));
@@ -59,7 +59,7 @@ const fieldArray = createFieldArray(latDim, obstacles);
 // For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
 const fieldEl = document.getElementById('field');
 
-const renderField = fieldArray => {
+const renderField = (fieldArray) => {
   fieldArray.forEach(({ x, y, type }) => {
     const cell = document.createElement('li');
     cell.id = `${x}${y}`;
@@ -86,22 +86,22 @@ const targetCell = fieldArray.find(({ type }) => type === 'target');
 // where an option will appear along the far right edge
 const isLeftEdgeWrappedOption = (optionID, dimVal) => optionID % dimVal === 0;
 
-// I'm avoiding a flood check of every field array item to return the ids 
+// I'm avoiding a flood check of every field array item to return the ids
 // for available moves from the "central" position
-
-// TODO: Better left and right edge filtering
 const returnOptionIDsArray = (centerID, dimVal) => {
   const idArray = [];
-  const idCap = dimVal*dimVal;
+  const idCap = dimVal * dimVal;
+  const topCenter = centerID - dimVal;
+  const bottomCenter = centerID + dimVal;
   // Top 3 options
-  if (!isLeftEdgeWrappedOption(centerID - dimVal - 1, dimVal) && centerID - dimVal - 1 > 0) {
-    idArray.push(centerID - dimVal - 1);
+  if (!isLeftEdgeWrappedOption(topCenter - 1, dimVal) && topCenter - 1 > 0) {
+    idArray.push(topCenter - 1);
   }
-  if (centerID - dimVal > 0) {
-    idArray.push(centerID - dimVal);
+  if (topCenter > 0) {
+    idArray.push(topCenter);
   }
-  if (centerID - dimVal + 1 > 0) {
-    idArray.push(centerID - dimVal + 1);
+  if (topCenter + 1 > 0) {
+    idArray.push(topCenter + 1);
   }
   // Left and right of the position ID
   if (!isLeftEdgeWrappedOption(centerID - 1, dimVal) && centerID - 1 > 0) {
@@ -111,29 +111,37 @@ const returnOptionIDsArray = (centerID, dimVal) => {
     idArray.push(centerID + 1);
   }
   // Bottom 3 options
-  if (!isLeftEdgeWrappedOption(centerID + dimVal - 1, dimVal) && centerID + dimVal - 1 < idCap) {
-    idArray.push(centerID + dimVal - 1);
+  if (
+    !isLeftEdgeWrappedOption(bottomCenter - 1, dimVal) &&
+    bottomCenter - 1 < idCap
+  ) {
+    idArray.push(bottomCenter - 1);
   }
-  if (centerID + dimVal < idCap) {
-    idArray.push(centerID + dimVal);
+  if (bottomCenter < idCap) {
+    idArray.push(bottomCenter);
   }
-  if (centerID + dimVal + 1 < idCap) {
-    idArray.push(centerID + dimVal + 1);
+  if (bottomCenter + 1 < idCap) {
+    idArray.push(bottomCenter + 1);
   }
   return idArray;
 };
 
+// Left edge
 console.log(returnOptionIDsArray(1, 4));
 console.log(returnOptionIDsArray(5, 4));
 console.log(returnOptionIDsArray(9, 4));
 console.log(returnOptionIDsArray(13, 4));
+
+// Right edge
 console.log(returnOptionIDsArray(4, 4));
+
+// Middle
 console.log(returnOptionIDsArray(6, 4));
 
 // Check that each field coordinate represented by the initial array of options
 // is within horizontal and vertical ranges of process cell
 const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
-  const filteredArray = idArray.filter(id => {
+  const filteredArray = idArray.filter((id) => {
     const { x, y } = fieldArray[id - 1];
     const withinXRange = x >= processX - 1 && x <= processX + 1;
     const withinYRange = y >= processY - 1 && y <= processY + 1;
