@@ -42,7 +42,7 @@ const createFieldArray = (dimVal, obstacles) => {
       finalArray.push(returnCoordObj(i, dimVal, 'start'));
     } else if (i === arrayLength) {
       finalArray.push(returnCoordObj(i, dimVal, 'target'));
-    } else if (obstacles.some((pos) => pos === i)) {
+    } else if (obstacles.some(pos => pos === i)) {
       finalArray.push(returnCoordObj(i, dimVal, 'obstacle'));
     } else {
       finalArray.push(returnCoordObj(i, dimVal, 'empty'));
@@ -59,7 +59,7 @@ const fieldArray = createFieldArray(latDim, obstacles);
 // For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
 const fieldEl = document.getElementById('field');
 
-const renderField = (fieldArray) => {
+const renderField = fieldArray => {
   fieldArray.forEach(({ x, y, type }) => {
     const cell = document.createElement('li');
     cell.id = `${x}${y}`;
@@ -77,10 +77,9 @@ console.log(fieldArray);
 const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
 
-// console.log(`Start --> ${JSON.stringify(startCell, null, 2)}`);
-// console.log(`Target --> ${JSON.stringify(targetCell, null, 2)}`);
-
 // We're assuming that the current field has no dead ends, for now!
+// We also know explicitely where the start and target cells
+// are on the fied and their meta-data.
 
 // Using remainder to address position ID being checked along
 // the left or right edge of the field, where an option will appear along
@@ -88,7 +87,7 @@ const targetCell = fieldArray.find(({ type }) => type === 'target');
 const willCauseWrap = (optionID, dimVal) => optionID % dimVal === 0;
 
 // I'm avoiding a flood check of every field array item to return the ids
-// for available moves from the "central" position
+// for available moves from around the "central" position
 const returnOptionIDsArray = (centerID, dimVal) => {
   const idArray = [];
   const idCap = dimVal * dimVal;
@@ -127,7 +126,7 @@ const returnOptionIDsArray = (centerID, dimVal) => {
 // Check that each field coordinate represented by the initial array of options
 // is within horizontal and vertical ranges of process cell
 const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
-  const filteredArray = idArray.filter((id) => {
+  const filteredArray = idArray.filter(id => {
     const { x, y } = fieldArray[id - 1];
     const withinXRange = x >= processX - 1 && x <= processX + 1;
     const withinYRange = y >= processY - 1 && y <= processY + 1;
@@ -136,37 +135,28 @@ const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
   return filteredArray;
 };
 
-const bulldozeThroughField = (fieldArray, startCell, latDim) => {
-  const { id, x, y } = startCell;
-  // const startPos = id - 1;
-  const path = [startCell];
+const bulldozeThroughField = (fieldArray, startCell, targetCell, latDim) => {
+  const targetCellID = targetCell.id;
+  let path = [startCell];
   let targetReached = false;
-  let testingLimit = 0;
   while (!targetReached) {
-    console.log(path[path.length - 1].id);
-    const moveOptions = filterOptionIDs(
-      // We want the id of the last item of the path array
-      // so we can find its position in the array
-      returnOptionIDsArray(path[path.length - 1].id, latDim),
-      fieldArray,
-      x,
-      y
-    );
-    console.log(moveOptions);
-    moveOptions.sort(
-      (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
-    );
-    if (moveOptions[0].type === 'target' || testingLimit >= 10) {
+    const moveOptions = returnOptionIDsArray(path[path.length - 1].id, latDim);
+    // If moveOptions contains the target ID, stop loop
+    if (moveOptions.some(option => option === targetCellID)) {
+      path.push(fieldArray[targetCellID - 1]);
       targetReached = true;
     } else {
+      // Sort move options by distance from target, with the shortest option at the start
+      moveOptions.sort(
+        (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
+      );
       path.push(fieldArray[moveOptions[0] - 1]);
-      testingLimit++;
     }
   }
-  console.log(path);
+  return path;
 };
 
-// bulldozeThroughField(fieldArray, startCell, latDim);
+console.log(bulldozeThroughField(fieldArray, startCell, targetCell, latDim));
 
 // fieldArray.forEach(
 //   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
