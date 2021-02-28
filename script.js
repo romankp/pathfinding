@@ -123,17 +123,17 @@ const returnOptionIDsArray = (centerID, dimVal) => {
   return idArray;
 };
 
-// Check that each field coordinate represented by the initial array of options
-// is within horizontal and vertical ranges of process cell
-const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
-  const filteredArray = idArray.filter(id => {
-    const { x, y } = fieldArray[id - 1];
-    const withinXRange = x >= processX - 1 && x <= processX + 1;
-    const withinYRange = y >= processY - 1 && y <= processY + 1;
-    return withinXRange && withinYRange ? true : false;
-  });
-  return filteredArray;
-};
+// TODO: We'll need to refactor this method to detect obstacle cells in the future
+
+// const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
+//   const filteredArray = idArray.filter(id => {
+//     const { x, y } = fieldArray[id - 1];
+//     const withinXRange = x >= processX - 1 && x <= processX + 1;
+//     const withinYRange = y >= processY - 1 && y <= processY + 1;
+//     return withinXRange && withinYRange ? true : false;
+//   });
+//   return filteredArray;
+// };
 
 const bulldozeThroughField = (fieldArray, startCell, targetCell, latDim) => {
   const targetCellID = targetCell.id;
