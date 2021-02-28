@@ -89,7 +89,7 @@ const targetCell = fieldArray.find(({ type }) => type === 'target');
 const returnOptionIDsArray = (centerID, dimVal) => {
   const idArray = [];
   const idCap = dimVal*dimVal;
-  console.log(idCap);
+  // Remainder addresses position ID being checked along the left edge of the field
   // Top 3 options
   if (centerID - dimVal - 1 > 0) {
     idArray.push(centerID - dimVal - 1);
@@ -101,14 +101,14 @@ const returnOptionIDsArray = (centerID, dimVal) => {
     idArray.push(centerID - dimVal + 1);
   }
   // Left and right of the position ID
-  if (centerID - 1 > 0) {
+  if ((centerID - 1) % dimVal !== 0 && centerID - 1 > 0) {
     idArray.push(centerID - 1);
   }
   if (centerID + 1 <= idCap) {
     idArray.push(centerID + 1);
   }
   // Bottom 3 options
-  if (centerID + dimVal - 1 < idCap) {
+  if ((centerID + dimVal - 1) % dimVal !== 0 && centerID + dimVal - 1 < idCap) {
     idArray.push(centerID + dimVal - 1);
   }
   if (centerID + dimVal < idCap) {
@@ -117,18 +117,19 @@ const returnOptionIDsArray = (centerID, dimVal) => {
   if (centerID + dimVal + 1 < idCap) {
     idArray.push(centerID + dimVal + 1);
   }
-  // console.log('returnOptionIDsArray -->');
-  // console.log(idArray);
   return idArray;
 };
 
+console.log(returnOptionIDsArray(1, 4));
+console.log(returnOptionIDsArray(5, 4));
 console.log(returnOptionIDsArray(4, 4));
+console.log(returnOptionIDsArray(6, 4));
 
 // Check that each field coordinate represented by the initial array of options
 // is within horizontal and vertical ranges of process cell
 const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
-  const filteredArray = idArray.filter(pos => {
-    const { x, y } = fieldArray[pos - 1];
+  const filteredArray = idArray.filter(id => {
+    const { x, y } = fieldArray[id - 1];
     const withinXRange = x >= processX - 1 && x <= processX + 1;
     const withinYRange = y >= processY - 1 && y <= processY + 1;
     return withinXRange && withinYRange ? true : false;
