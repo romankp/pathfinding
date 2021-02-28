@@ -80,7 +80,11 @@ const targetCell = fieldArray.find(({ type }) => type === 'target');
 // console.log(`Start --> ${JSON.stringify(startCell, null, 2)}`);
 // console.log(`Target --> ${JSON.stringify(targetCell, null, 2)}`);
 
-// We're also assuming that the current field has no dead ends, for now!
+// We're assuming that the current field has no dead ends, for now!
+
+// Using remainder to address position ID being checked along the left edge of the field,
+// where an option will appear along the far right edge
+const isLeftEdgeWrappedOption = (optionID, dimVal) => optionID % dimVal === 0;
 
 // I'm avoiding a flood check of every field array item to return the ids 
 // for available moves from the "central" position
@@ -89,9 +93,8 @@ const targetCell = fieldArray.find(({ type }) => type === 'target');
 const returnOptionIDsArray = (centerID, dimVal) => {
   const idArray = [];
   const idCap = dimVal*dimVal;
-  // Remainder addresses position ID being checked along the left edge of the field
   // Top 3 options
-  if (centerID - dimVal - 1 > 0) {
+  if (!isLeftEdgeWrappedOption(centerID - dimVal - 1, dimVal) && centerID - dimVal - 1 > 0) {
     idArray.push(centerID - dimVal - 1);
   }
   if (centerID - dimVal > 0) {
@@ -101,14 +104,14 @@ const returnOptionIDsArray = (centerID, dimVal) => {
     idArray.push(centerID - dimVal + 1);
   }
   // Left and right of the position ID
-  if ((centerID - 1) % dimVal !== 0 && centerID - 1 > 0) {
+  if (!isLeftEdgeWrappedOption(centerID - 1, dimVal) && centerID - 1 > 0) {
     idArray.push(centerID - 1);
   }
   if (centerID + 1 <= idCap) {
     idArray.push(centerID + 1);
   }
   // Bottom 3 options
-  if ((centerID + dimVal - 1) % dimVal !== 0 && centerID + dimVal - 1 < idCap) {
+  if (!isLeftEdgeWrappedOption(centerID + dimVal - 1, dimVal) && centerID + dimVal - 1 < idCap) {
     idArray.push(centerID + dimVal - 1);
   }
   if (centerID + dimVal < idCap) {
@@ -122,6 +125,8 @@ const returnOptionIDsArray = (centerID, dimVal) => {
 
 console.log(returnOptionIDsArray(1, 4));
 console.log(returnOptionIDsArray(5, 4));
+console.log(returnOptionIDsArray(9, 4));
+console.log(returnOptionIDsArray(13, 4));
 console.log(returnOptionIDsArray(4, 4));
 console.log(returnOptionIDsArray(6, 4));
 
