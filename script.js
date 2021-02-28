@@ -82,9 +82,10 @@ const targetCell = fieldArray.find(({ type }) => type === 'target');
 
 // We're assuming that the current field has no dead ends, for now!
 
-// Using remainder to address position ID being checked along the left edge of the field,
-// where an option will appear along the far right edge
-const isLeftEdgeWrappedOption = (optionID, dimVal) => optionID % dimVal === 0;
+// Using remainder to address position ID being checked along
+// the left or right edge of the field, where an option will appear along
+// the far right or left edge, respectively.
+const willCauseWrap = (optionID, dimVal) => optionID % dimVal === 0;
 
 // I'm avoiding a flood check of every field array item to return the ids
 // for available moves from the "central" position
@@ -94,49 +95,34 @@ const returnOptionIDsArray = (centerID, dimVal) => {
   const topCenter = centerID - dimVal;
   const bottomCenter = centerID + dimVal;
   // Top 3 options
-  if (!isLeftEdgeWrappedOption(topCenter - 1, dimVal) && topCenter - 1 > 0) {
+  if (topCenter - 1 > 0 && !willCauseWrap(topCenter - 1, dimVal)) {
     idArray.push(topCenter - 1);
   }
   if (topCenter > 0) {
     idArray.push(topCenter);
   }
-  if (topCenter + 1 > 0) {
+  if (topCenter + 1 > 0 && !willCauseWrap(topCenter, dimVal)) {
     idArray.push(topCenter + 1);
   }
-  // Left and right of the position ID
-  if (!isLeftEdgeWrappedOption(centerID - 1, dimVal) && centerID - 1 > 0) {
+  // Left and right of center ID
+  if (centerID - 1 > 0 && !willCauseWrap(centerID - 1, dimVal)) {
     idArray.push(centerID - 1);
   }
-  if (centerID + 1 <= idCap) {
+  if (centerID + 1 <= idCap && !willCauseWrap(centerID, dimVal)) {
     idArray.push(centerID + 1);
   }
   // Bottom 3 options
-  if (
-    !isLeftEdgeWrappedOption(bottomCenter - 1, dimVal) &&
-    bottomCenter - 1 < idCap
-  ) {
+  if (bottomCenter - 1 <= idCap && !willCauseWrap(bottomCenter - 1, dimVal)) {
     idArray.push(bottomCenter - 1);
   }
-  if (bottomCenter < idCap) {
+  if (bottomCenter <= idCap) {
     idArray.push(bottomCenter);
   }
-  if (bottomCenter + 1 < idCap) {
+  if (bottomCenter + 1 <= idCap && !willCauseWrap(bottomCenter, dimVal)) {
     idArray.push(bottomCenter + 1);
   }
   return idArray;
 };
-
-// Left edge
-console.log(returnOptionIDsArray(1, 4));
-console.log(returnOptionIDsArray(5, 4));
-console.log(returnOptionIDsArray(9, 4));
-console.log(returnOptionIDsArray(13, 4));
-
-// Right edge
-console.log(returnOptionIDsArray(4, 4));
-
-// Middle
-console.log(returnOptionIDsArray(6, 4));
 
 // Check that each field coordinate represented by the initial array of options
 // is within horizontal and vertical ranges of process cell
