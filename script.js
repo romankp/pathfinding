@@ -123,24 +123,23 @@ const returnOptionIDsArray = (centerID, dimVal) => {
   return idArray;
 };
 
-// TODO: We'll need to refactor this method to detect obstacle cells in the future
-
-// const filterOptionIDs = (idArray, fieldArray, processX, processY) => {
-//   const filteredArray = idArray.filter(id => {
-//     const { x, y } = fieldArray[id - 1];
-//     const withinXRange = x >= processX - 1 && x <= processX + 1;
-//     const withinYRange = y >= processY - 1 && y <= processY + 1;
-//     return withinXRange && withinYRange ? true : false;
-//   });
-//   return filteredArray;
-// };
+const filterOptionIDs = (optionsArray, fieldArray) => {
+  const filteredOptions = optionsArray.filter(id => {
+    const { type } = fieldArray[id - 1];
+    return type === 'empty' || type === 'target' ? true : false;
+  });
+  return filteredOptions;
+};
 
 const bulldozeThroughField = (fieldArray, startCell, targetCell, latDim) => {
   const targetCellID = targetCell.id;
   let path = [startCell];
   let targetReached = false;
   while (!targetReached) {
-    const moveOptions = returnOptionIDsArray(path[path.length - 1].id, latDim);
+    const moveOptions = filterOptionIDs(
+      returnOptionIDsArray(path[path.length - 1].id, latDim),
+      fieldArray
+    );
     // If moveOptions contains the target ID, stop loop
     if (moveOptions.some(option => option === targetCellID)) {
       path.push(fieldArray[targetCellID - 1]);
