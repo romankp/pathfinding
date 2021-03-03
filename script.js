@@ -63,9 +63,7 @@ const renderField = fieldArray => {
   fieldArray.forEach(({ id, type }) => {
     const cell = document.createElement('li');
     cell.id = `${id}`;
-    cell.className = `${type === 'start' ? ' start' : ''}${
-      type === 'target' ? ' target' : ''
-    }${type === 'obstacle' ? ' obstacle' : ''}`;
+    cell.className = `${type}`;
     fieldEl.append(cell);
   });
 };
@@ -143,6 +141,11 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       fieldArray
     );
     console.log(moveOptions);
+    moveOptions.forEach(id => {
+      const optionLI = document.getElementById(`${id}`);
+      optionLI.className();
+      console.log(optionLI);
+    });
     // If moveOptions contains the target ID, stop loop
     if (moveOptions.some(option => option === targetCellID)) {
       path.push(fieldArray[targetCellID - 1]);
