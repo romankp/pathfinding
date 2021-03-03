@@ -60,15 +60,17 @@ const fieldArray = createFieldArray(latDim, obstacles);
 const fieldEl = document.getElementById('field');
 
 const renderField = fieldArray => {
-  fieldArray.forEach(({ x, y, type }) => {
+  fieldArray.forEach(({ id, type }) => {
     const cell = document.createElement('li');
-    cell.id = `${x}${y}`;
+    cell.id = `${id}`;
     cell.className = `${type === 'start' ? ' start' : ''}${
       type === 'target' ? ' target' : ''
     }${type === 'obstacle' ? ' obstacle' : ''}`;
     fieldEl.append(cell);
   });
 };
+
+const paintOptions = (fieldArray, id) => {};
 
 renderField(fieldArray);
 console.log(fieldArray);
@@ -131,7 +133,7 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
   return filteredOptions;
 };
 
-const bulldozeThroughField = (fieldArray, startCell, targetCell, latDim) => {
+const findPath = (fieldArray, startCell, targetCell, latDim) => {
   const targetCellID = targetCell.id;
   let path = [startCell];
   let targetReached = false;
@@ -140,6 +142,7 @@ const bulldozeThroughField = (fieldArray, startCell, targetCell, latDim) => {
       returnOptionIDsArray(path[path.length - 1].id, latDim),
       fieldArray
     );
+    console.log(moveOptions);
     // If moveOptions contains the target ID, stop loop
     if (moveOptions.some(option => option === targetCellID)) {
       path.push(fieldArray[targetCellID - 1]);
@@ -155,7 +158,7 @@ const bulldozeThroughField = (fieldArray, startCell, targetCell, latDim) => {
   return path;
 };
 
-console.log(bulldozeThroughField(fieldArray, startCell, targetCell, latDim));
+console.log(findPath(fieldArray, startCell, targetCell, latDim));
 
 // fieldArray.forEach(
 //   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
