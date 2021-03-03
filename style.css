@@ -36,6 +36,10 @@ li {
   background-color: black;
 }
 
+.considered {
+  background-color: aquamarine;
+}
+
 .target {
   background-color: tomato;
 }

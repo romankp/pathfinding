@@ -68,7 +68,7 @@ const renderField = fieldArray => {
   });
 };
 
-const paintOptions = (fieldArray, id) => {};
+// const paintOptions = (fieldArray, id) => {};
 
 renderField(fieldArray);
 console.log(fieldArray);
@@ -143,7 +143,9 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
     console.log(moveOptions);
     moveOptions.forEach(id => {
       const optionLI = document.getElementById(`${id}`);
-      optionLI.className();
+      if (optionLI.className === 'empty') {
+        optionLI.className = 'empty considered';
+      }
       console.log(optionLI);
     });
     // If moveOptions contains the target ID, stop loop
