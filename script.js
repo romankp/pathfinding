@@ -165,15 +165,3 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
 };
 
 console.log(findPath(fieldArray, startCell, targetCell, latDim));
-
-// fieldArray.forEach(
-//   cell => cell.start && console.log(JSON.stringify(cell, 4, null))
-// );
-
-// fieldArray.forEach(
-//   cell => cell.obstacle && console.log(JSON.stringify(cell, 4, null))
-// );
-
-// fieldArray.forEach(
-//   cell => cell.end && console.log(JSON.stringify(cell, 4, null))
-// );
