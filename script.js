@@ -78,11 +78,6 @@ const paintCell = (id, type) => {
   }
 };
 
-// const paintPath = id => {
-//   const optionLI = document.getElementById(`${id}`);
-//   optionLI.className = 'empty path';
-// };
-
 renderField(fieldArray);
 console.log(fieldArray);
 
