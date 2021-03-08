@@ -68,17 +68,20 @@ const renderField = fieldArray => {
   });
 };
 
-const paintOptions = id => {
+const paintCell = (id, type) => {
   const optionLI = document.getElementById(`${id}`);
-  if (optionLI.className === 'empty') {
+  if (type === 'option' && optionLI.className === 'empty') {
     optionLI.className = 'empty considered';
+  }
+  if (type === 'path') {
+    optionLI.className = 'empty path';
   }
 };
 
-const paintPath = id => {
-  const optionLI = document.getElementById(`${id}`);
-  optionLI.className = 'empty path';
-};
+// const paintPath = id => {
+//   const optionLI = document.getElementById(`${id}`);
+//   optionLI.className = 'empty path';
+// };
 
 renderField(fieldArray);
 console.log(fieldArray);
@@ -152,7 +155,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
     );
     // Paint options after they become available
     moveOptions.forEach(id => {
-      paintOptions(id);
+      paintCell(id, 'option');
     });
     // If moveOptions contains the target ID, stop loop
     if (moveOptions.some(option => option === targetCellID)) {
@@ -163,7 +166,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       moveOptions.sort(
         (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
       );
-      paintPath(moveOptions[0]);
+      paintCell(moveOptions[0], 'path');
       path.push(fieldArray[moveOptions[0] - 1]);
     }
   }
