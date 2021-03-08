@@ -163,6 +163,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       moveOptions.sort(
         (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
       );
+      paintPath(moveOptions[0]);
       path.push(fieldArray[moveOptions[0] - 1]);
     }
   }
