@@ -56,7 +56,7 @@ const latDim = 5;
 const obstacles = [7, 11, 18, 24];
 const fieldArray = createFieldArray(latDim, obstacles);
 
-// For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
+// Render field
 const fieldEl = document.getElementById('field');
 
 const renderField = (fieldArray, fieldEl, dim) => {
