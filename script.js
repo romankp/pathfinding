@@ -59,7 +59,11 @@ const fieldArray = createFieldArray(latDim, obstacles);
 // For now, with the small initial field, we already know the size and boundaries, so we don't have to go wild
 const fieldEl = document.getElementById('field');
 
-const renderField = fieldArray => {
+const renderField = (fieldArray, fieldEl, dim) => {
+  const gridRepeat = `repeat(${dim}, auto)`;
+  let elStyle = fieldEl.style;
+  elStyle.gridTemplateColumns = gridRepeat;
+  elStyle.gridTemplateRows = gridRepeat;
   fieldArray.forEach(({ id, type }) => {
     const cell = document.createElement('li');
     cell.id = `${id}`;
@@ -78,7 +82,7 @@ const paintCell = (id, type) => {
   }
 };
 
-renderField(fieldArray);
+renderField(fieldArray, fieldEl, latDim);
 console.log(fieldArray);
 
 // The fun stuff
