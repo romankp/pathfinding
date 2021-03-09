@@ -152,8 +152,11 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       returnOptionIDsArray(path[path.length - 1].id, latDim),
       fieldArray
     );
-    // Paint options after they become available
+    // Mark field array option entries as checked
+    // and paint rendered option cells after they are filtered.
+    // TODO: Pull this out into separate method
     moveOptions.forEach(id => {
+      fieldArray[id - 1].checked = true;
       paintCell(id, 'option');
     });
     // If moveOptions contains the target ID, stop loop
