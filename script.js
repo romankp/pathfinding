@@ -165,6 +165,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       moveOptions.sort(
         (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
       );
+      // TODO: Check if no options, need to start building out a way to retreat from a dead end
       paintCell(moveOptions[0], 'path');
       path.push(fieldArray[moveOptions[0] - 1]);
     }
