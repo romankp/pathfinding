@@ -53,7 +53,9 @@ const createFieldArray = (dimVal, obstacles) => {
 
 // Describe obstacle positions and construct field array
 const latDim = 5;
-const obstacles = [7, 11, 18, 24];
+// const obstacles = [7, 11, 18, 24];
+// Temporary obstacles with a dead-end
+const obstacles = [7, 12, 17, 18, 24];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -140,6 +142,7 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
     const { type } = fieldArray[id - 1];
     return type === 'empty' || type === 'target' ? true : false;
   });
+  console.log(filteredOptions);
   return filteredOptions;
 };
 
