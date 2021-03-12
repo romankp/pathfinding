@@ -139,7 +139,9 @@ const returnOptionIDsArray = (centerID, dimVal) => {
 
 const filterOptionIDs = (optionsArray, fieldArray) => {
   const filteredOptions = optionsArray.filter(id => {
-    const { type } = fieldArray[id - 1];
+    // We need to see if the cell has been checked to navigate dead ends
+    // but only when we also know the from position
+    const { type, checked } = fieldArray[id - 1];
     return type === 'empty' || type === 'target' ? true : false;
   });
   console.log(filteredOptions);
