@@ -141,11 +141,15 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
   const filteredOptions = optionsArray.filter(id => {
     // We need to see if the cell has been checked to navigate dead ends
     // but only when we also know the from position
-    const { type, checked } = fieldArray[id - 1];
+    const { type, checked, from } = fieldArray[id - 1];
     return type === 'empty' || type === 'target' ? true : false;
   });
   console.log(filteredOptions);
   return filteredOptions;
+};
+
+const updateFrom = (currentID, pathID) => {
+  fieldArray[pathID - 1].from = currentID;
 };
 
 const findPath = (fieldArray, startCell, targetCell, latDim) => {
@@ -153,8 +157,9 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
   let path = [startCell];
   let targetReached = false;
   while (!targetReached) {
+    const currentID = path[path.length - 1].id;
     const moveOptions = filterOptionIDs(
-      returnOptionIDsArray(path[path.length - 1].id, latDim),
+      returnOptionIDsArray(currentID, latDim),
       fieldArray
     );
     // Mark field array option entries as checked
@@ -173,7 +178,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       moveOptions.sort(
         (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
       );
-      // TODO: Check if no options, need to start building out a way to retreat from a dead end
+      updateFrom(currentID, moveOptions[0]);
       paintCell(moveOptions[0], 'path');
       path.push(fieldArray[moveOptions[0] - 1]);
     }
