@@ -55,7 +55,7 @@ const createFieldArray = (dimVal, obstacles) => {
 const latDim = 5;
 // const obstacles = [7, 11, 18, 24];
 // Temporary obstacles with a dead-end
-const obstacles = [7, 12, 17, 18, 24];
+const obstacles = [7, 12, 16, 17, 18, 24];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -172,6 +172,9 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
     // If moveOptions contains the target ID, stop loop
     if (moveOptions.some(option => option === targetCellID)) {
       path.push(fieldArray[targetCellID - 1]);
+      targetReached = true;
+    } else if (moveOptions.length < 2) {
+      console.log('Hit a dead end.');
       targetReached = true;
     } else {
       // Sort move options by distance from target, with the shortest option at the start
