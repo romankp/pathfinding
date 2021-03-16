@@ -53,9 +53,9 @@ const createFieldArray = (dimVal, obstacles) => {
 
 // Describe obstacle positions and construct field array
 const latDim = 5;
-// const obstacles = [7, 11, 18, 24];
+const obstacles = [7, 11, 18, 24];
 // Temporary obstacles with a dead-end
-const obstacles = [7, 12, 16, 17, 18, 24];
+// const obstacles = [7, 12, 16, 17, 18, 24];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -152,6 +152,10 @@ const updateFrom = (currentID, pathID) => {
   fieldArray[pathID - 1].from = currentID;
 };
 
+const updateType = (string, pathID) => {
+  fieldArray[pathID - 1].type = string;
+};
+
 const findPath = (fieldArray, startCell, targetCell, latDim) => {
   const targetCellID = targetCell.id;
   let path = [startCell];
@@ -169,11 +173,12 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       fieldArray[id - 1].checked = true;
       paintCell(id, 'option');
     });
-    // If moveOptions contains the target ID, stop loop
     if (moveOptions.some(option => option === targetCellID)) {
+      // If moveOptions contains the target ID, stop loop. We've made it!
       path.push(fieldArray[targetCellID - 1]);
       targetReached = true;
     } else if (moveOptions.length < 2) {
+      // Very specific dead end for now, while the field is tight
       console.log('Hit a dead end.');
       targetReached = true;
     } else {
@@ -182,6 +187,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
         (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
       );
       updateFrom(currentID, moveOptions[0]);
+      updateType('path', moveOptions[0]);
       paintCell(moveOptions[0], 'path');
       path.push(fieldArray[moveOptions[0] - 1]);
     }
