@@ -177,7 +177,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // If moveOptions contains the target ID, stop loop. We've made it!
       path.push(fieldArray[targetCellID - 1]);
       targetReached = true;
-    } else if (moveOptions.length < 2) {
+    } else if (moveOptions.length === 1) {
       // Very specific dead end for now, while the field is tight
       console.log('Hit a dead end.');
       targetReached = true;
