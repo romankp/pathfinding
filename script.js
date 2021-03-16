@@ -53,9 +53,9 @@ const createFieldArray = (dimVal, obstacles) => {
 
 // Describe obstacle positions and construct field array
 const latDim = 5;
-const obstacles = [7, 11, 18, 24];
+// const obstacles = [7, 11, 18, 24];
 // Temporary obstacles with a dead-end
-// const obstacles = [7, 12, 16, 17, 18, 24];
+const obstacles = [7, 12, 16, 17, 18, 24];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -142,7 +142,9 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
     // We need to see if the cell has been checked to navigate dead ends
     // but only when we also know the from position
     const { type, checked, from } = fieldArray[id - 1];
-    return type === 'empty' || type === 'target' ? true : false;
+    return type === 'empty' || type === 'path' || type === 'target'
+      ? true
+      : false;
   });
   console.log(filteredOptions);
   return filteredOptions;
@@ -177,9 +179,10 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // If moveOptions contains the target ID, stop loop. We've made it!
       path.push(fieldArray[targetCellID - 1]);
       targetReached = true;
-    } else if (moveOptions.length === 1) {
+    } else if (moveOptions.length < 2) {
       // Very specific dead end for now, while the field is tight
       console.log('Hit a dead end.');
+      updateType('no-path', currentID);
       targetReached = true;
     } else {
       // Sort move options by distance from target, with the shortest option at the start
