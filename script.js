@@ -150,6 +150,13 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
   return filteredOptions;
 };
 
+const markCheckedOptions = (optionsIDs, fieldArray) => {
+  optionsIDs.forEach(id => {
+    fieldArray[id - 1].checked = true;
+    paintCell(id, 'option');
+  });
+};
+
 const updateFrom = (currentID, pathID) => {
   fieldArray[pathID - 1].from = currentID;
 };
@@ -162,19 +169,16 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
   const targetCellID = targetCell.id;
   let path = [startCell];
   let targetReached = false;
+
   while (!targetReached) {
     const currentID = path[path.length - 1].id;
     const moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
       fieldArray
     );
-    // Mark field array option entries as checked
-    // and paint rendered option cells after they are filtered.
-    // TODO: Pull this out into separate method
-    moveOptions.forEach(id => {
-      fieldArray[id - 1].checked = true;
-      paintCell(id, 'option');
-    });
+
+    markCheckedOptions(moveOptions, fieldArray);
+
     if (moveOptions.some(option => option === targetCellID)) {
       // If moveOptions contains the target ID, stop loop. We've made it!
       path.push(fieldArray[targetCellID - 1]);
