@@ -74,13 +74,16 @@ const renderField = (fieldArray, fieldEl, dim) => {
   });
 };
 
-const paintCell = (id, type) => {
+const paintCell = (type, id) => {
   const optionLI = document.getElementById(`${id}`);
   if (type === 'option' && optionLI.className === 'empty') {
     optionLI.className = 'empty considered';
   }
   if (type === 'path') {
     optionLI.className = 'empty path';
+  }
+  if (type === 'blocked') {
+    optionLI.className = 'empty blocked';
   }
 };
 
@@ -150,10 +153,10 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
   return filteredOptions;
 };
 
-const markCheckedOptions = (optionsIDs, fieldArray) => {
-  optionsIDs.forEach(id => {
+const markCheckedOptions = (optionIDs, fieldArray) => {
+  optionIDs.forEach(id => {
     fieldArray[id - 1].checked = true;
-    paintCell(id, 'option');
+    paintCell('option', id);
   });
 };
 
@@ -186,7 +189,8 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
     } else if (moveOptions.length < 2) {
       // Very specific dead end for now, while the field is tight
       console.log('Hit a dead end.');
-      updateType('no-path', currentID);
+      updateType('blocked', currentID);
+      paintCell('blocked', currentID);
       targetReached = true;
     } else {
       // Sort move options by distance from target, with the shortest option at the start
@@ -195,7 +199,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       );
       updateFrom(currentID, moveOptions[0]);
       updateType('path', moveOptions[0]);
-      paintCell(moveOptions[0], 'path');
+      paintCell('path', moveOptions[0]);
       path.push(fieldArray[moveOptions[0] - 1]);
     }
   }
