@@ -149,7 +149,6 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
       ? true
       : false;
   });
-  console.log(filteredOptions);
   return filteredOptions;
 };
 
@@ -180,18 +179,23 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       fieldArray
     );
 
+    console.log(moveOptions);
     markCheckedOptions(moveOptions, fieldArray);
 
     if (moveOptions.some(option => option === targetCellID)) {
       // If moveOptions contains the target ID, stop loop. We've made it!
       path.push(fieldArray[targetCellID - 1]);
       targetReached = true;
-    } else if (moveOptions.length < 2) {
-      // Very specific dead end for now, while the field is tight
+    } else if (moveOptions.length < 2 && currentID !== 1) {
+      // Very specific dead end check for now, while the field is tight.
+      // Basically we want to backtrack until we find an 'empty' coordinate type.
+      // If we backtrack all the way to the start, we want to preserve it in the path array as the start.
+      // This will only be viable while we know that the start coordinate is at the top left corner of the field
       console.log('Hit a dead end.');
+      updateFrom(currentID, moveOptions[0]);
       updateType('blocked', currentID);
       paintCell('blocked', currentID);
-      targetReached = true;
+      path.pop();
     } else {
       // Sort move options by distance from target, with the shortest option at the start
       moveOptions.sort(
