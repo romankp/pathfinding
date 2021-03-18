@@ -5,11 +5,18 @@
   border: none;
 }
 
+ul {
+  list-style: none;
+  padding: 0;
+}
+
+/* Viewport */
 body {
   height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
 }
 
 /* Field */
@@ -20,6 +27,7 @@ body {
   list-style: none;
   column-gap: 2px;
   row-gap: 2px;
+  margin-bottom: 32px;
 }
 
 li {
@@ -27,7 +35,7 @@ li {
 }
 
 .start {
-  background-color: turquoise;
+  background-color: blue;
 }
 
 .obstacle {
@@ -48,4 +56,21 @@ li {
 
 .target {
   background-color: tomato;
+}
+
+.start,
+.obstacle,
+.blocked {
+  color: white;
+}
+
+#key {
+  display: flex;
+  flex-flow: row nowrap;
+  justify-content: space-between;
+  width: 400px;
+}
+
+#key li {
+  padding: 2px 8px;
 }
