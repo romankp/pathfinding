@@ -52,10 +52,8 @@ const createFieldArray = (dimVal, obstacles) => {
 };
 
 // Describe obstacle positions and construct field array
-const latDim = 5;
-// const obstacles = [7, 11, 18, 24];
-// Temporary obstacles with a dead-end
-const obstacles = [7, 12, 16, 17, 18, 24];
+const latDim = 7;
+const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -191,10 +189,17 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // Basically we want to backtrack until we find an 'empty' coordinate type.
       // If we backtrack all the way to the start, we want to preserve it in the path array as the start.
       // This will only be viable while we know that the start coordinate is at the top left corner of the field
+
+      // TODO: As the field becomes larger, this becomes less likely to happen
+      // But the likelihood of having to double back or choose an option that has
+      // a higher distance value (lower sort order) becomes more likely.
+      // Need to create a solution here that removes exploratory steps that end up backtracking
+      // when the path is not a blocked tunnel (has only 1 or 2 move options)
       console.log('Hit a dead end.');
       updateFrom(currentID, moveOptions[0]);
       updateType('blocked', currentID);
       paintCell('blocked', currentID);
+      // Remove current coord from path array
       path.pop();
     } else {
       // Sort move options by distance from target, with the shortest option at the start
