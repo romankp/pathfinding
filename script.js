@@ -53,7 +53,7 @@ const createFieldArray = (dimVal, obstacles) => {
 
 // Describe obstacle positions and construct field array
 const latDim = 7;
-const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
+const obstacles = [7, 12, 16, 17, 18, 24, 33, 34];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -206,6 +206,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       moveOptions.sort(
         (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
       );
+      console.log(`After sort --> ${moveOptions}`);
       updateFrom(currentID, moveOptions[0]);
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);
