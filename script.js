@@ -7,7 +7,7 @@ const returnY = (dimVal, workingVal) => {
   return Math.ceil(workingVal / dimVal);
 };
 
-// Returns distance of cell from target
+// Returns distance of cell from target with a bit of rounding
 const returnDistance = (dimVal, x, y) => {
   const yDist = dimVal - y;
   const xDist = dimVal - x;
@@ -17,7 +17,7 @@ const returnDistance = (dimVal, x, y) => {
   if (dimVal === y) {
     return xDist;
   }
-  return Math.hypot(yDist, xDist);
+  return Number(Math.round(Math.hypot(yDist, xDist) + 'e3') + 'e-3');
 };
 
 const returnCoordObj = (i, dimVal, type) => {
@@ -53,7 +53,7 @@ const createFieldArray = (dimVal, obstacles) => {
 
 // Describe obstacle positions and construct field array
 const latDim = 7;
-const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
+const obstacles = [7, 12, 16, 17, 18, 24, 33, 34];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -72,6 +72,7 @@ const renderField = (fieldArray, fieldEl, dim) => {
   });
 };
 
+// Amend cell class name to add context color to rendered field
 const paintCell = (type, id) => {
   const optionLI = document.getElementById(`${id}`);
   if (type === 'option' && optionLI.className === 'empty') {
@@ -85,6 +86,7 @@ const paintCell = (type, id) => {
   }
 };
 
+// Render field visual
 renderField(fieldArray, fieldEl, latDim);
 console.log(fieldArray);
 
@@ -92,8 +94,7 @@ console.log(fieldArray);
 const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
 
-// We're assuming that the current field has no dead ends, for now!
-// We also know explicitely where the start and target cells
+// We know explicitely where the start and target cells for now
 // are on the fied and their meta-data.
 
 // Using remainder to address position ID being checked along
@@ -204,13 +205,8 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
     } else {
       // Sort move options by distance from target, with the shortest option at the start
       moveOptions.sort(
-        // (a, b) => fieldArray[a].targetDistance - fieldArray[b].targetDistance
-        (a, b) => {
-          console.log(
-            fieldArray[a].targetDistance - fieldArray[b].targetDistance
-          );
-          return fieldArray[a].targetDistance - fieldArray[b].targetDistance;
-        }
+        (a, b) =>
+          fieldArray[a - 1].targetDistance - fieldArray[b - 1].targetDistance
       );
       console.log(`After sort --> ${moveOptions}`);
       updateFrom(currentID, moveOptions[0]);
