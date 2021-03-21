@@ -53,7 +53,7 @@ const createFieldArray = (dimVal, obstacles) => {
 
 // Describe obstacle positions and construct field array
 const latDim = 7;
-const obstacles = [7, 12, 16, 17, 18, 24, 33, 34];
+const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
 const fieldArray = createFieldArray(latDim, obstacles);
 
 // Render field
@@ -170,8 +170,9 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
   const targetCellID = targetCell.id;
   let path = [startCell];
   let targetReached = false;
+  let loop = 0;
 
-  while (!targetReached) {
+  while (!targetReached && loop < 16) {
     const currentID = path[path.length - 1].id;
     const moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
@@ -202,17 +203,19 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       paintCell('blocked', currentID);
       // Remove current coord from path array
       path.pop();
+      loop++;
     } else {
       // Sort move options by distance from target, with the shortest option at the start
       moveOptions.sort(
         (a, b) =>
           fieldArray[a - 1].targetDistance - fieldArray[b - 1].targetDistance
       );
-      console.log(`After sort --> ${moveOptions}`);
+      console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
       updateFrom(currentID, moveOptions[0]);
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);
       path.push(fieldArray[moveOptions[0] - 1]);
+      loop++;
     }
   }
   return path;
