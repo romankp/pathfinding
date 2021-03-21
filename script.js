@@ -211,6 +211,8 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
           fieldArray[a - 1].targetDistance - fieldArray[b - 1].targetDistance
       );
       console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
+      // TODO: If top sorted item is where we moved from, move there but mark this coord as 'blocked'.
+      // This is to prevent deadend fields, where the algorithm will thrash back and forth between 2 coords endlessly.
       updateFrom(currentID, moveOptions[0]);
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);
