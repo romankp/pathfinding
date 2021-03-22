@@ -172,7 +172,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
   let targetReached = false;
   let loop = 0;
 
-  while (!targetReached && loop < 16) {
+  while (!targetReached && loop < 24) {
     const currentID = path[path.length - 1].id;
     const moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
@@ -198,6 +198,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // Need to create a solution here that removes exploratory steps that end up backtracking
       // when the path is not a blocked tunnel (has only 1 or 2 move options)
       console.log('Hit a dead end.');
+      console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
       updateFrom(currentID, moveOptions[0]);
       updateType('blocked', currentID);
       paintCell('blocked', currentID);
@@ -213,6 +214,12 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
       // TODO: If top sorted item is where we moved from, move there but mark this coord as 'blocked'.
       // This is to prevent deadend fields, where the algorithm will thrash back and forth between 2 coords endlessly.
+      if (fieldArray[moveOptions[0] - 1].type === 'path') {
+        updateType('blocked', currentID);
+        paintCell('blocked', currentID);
+        path.pop();
+        loop++;
+      }
       updateFrom(currentID, moveOptions[0]);
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);
