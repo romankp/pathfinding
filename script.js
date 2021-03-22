@@ -170,9 +170,11 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
   const targetCellID = targetCell.id;
   let path = [startCell];
   let targetReached = false;
-  let loop = 0;
+  // let loop = 0;
 
-  while (!targetReached && loop < 24) {
+  // Gonna' keep this guy here for testing.
+  // while (!targetReached && loop < 24) {
+  while (!targetReached) {
     const currentID = path[path.length - 1].id;
     const moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
@@ -215,14 +217,19 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       if (fieldArray[moveOptions[0] - 1].type === 'path') {
         updateType('blocked', currentID);
         paintCell('blocked', currentID);
-        path.pop();
-        loop++;
+        // We might change this in the future but we want to get rid of the last 2 path items in the array.
+        // In a deadend field, the current cell can move back and forth, attempting to find a possible exit from a "central" coord.
+        // Removing the last 2 entries here cleans up the path array at the end
+        path.splice(-2, 2);
+        // loop++;
       }
-      updateFrom(currentID, moveOptions[0]);
+      if (!(fieldArray[currentID - 1].type === 'path')) {
+        updateFrom(currentID, moveOptions[0]);
+      }
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);
       path.push(fieldArray[moveOptions[0] - 1]);
-      loop++;
+      // loop++;
     }
   }
   return path;
