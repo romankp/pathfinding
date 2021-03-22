@@ -186,25 +186,25 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // If moveOptions contains the target ID, stop loop. We've made it!
       path.push(fieldArray[targetCellID - 1]);
       targetReached = true;
-    } else if (moveOptions.length < 2 && currentID !== 1) {
-      // Very specific dead end check for now, while the field is tight.
-      // Basically we want to backtrack until we find an 'empty' coordinate type.
-      // If we backtrack all the way to the start, we want to preserve it in the path array as the start.
-      // This will only be viable while we know that the start coordinate is at the top left corner of the field
+      // } else if (moveOptions.length < 2 && currentID !== 1) {
+      //   // Very specific dead end check for now, while the field is tight.
+      //   // Basically we want to backtrack until we find an 'empty' coordinate type.
+      //   // If we backtrack all the way to the start, we want to preserve it in the path array as the start.
+      //   // This will only be viable while we know that the start coordinate is at the top left corner of the field
 
-      // TODO: As the field becomes larger, this becomes less likely to happen
-      // But the likelihood of having to double back or choose an option that has
-      // a higher distance value (lower sort order) becomes more likely.
-      // Need to create a solution here that removes exploratory steps that end up backtracking
-      // when the path is not a blocked tunnel (has only 1 or 2 move options)
-      console.log('Hit a dead end.');
-      console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
-      updateFrom(currentID, moveOptions[0]);
-      updateType('blocked', currentID);
-      paintCell('blocked', currentID);
-      // Remove current coord from path array
-      path.pop();
-      loop++;
+      //   // TODO: As the field becomes larger, this becomes less likely to happen
+      //   // But the likelihood of having to double back or choose an option that has
+      //   // a higher distance value (lower sort order) becomes more likely.
+      //   // Need to create a solution here that removes exploratory steps that end up backtracking
+      //   // when the path is not a blocked tunnel (has only 1 or 2 move options)
+      //   console.log('Hit a dead end.');
+      //   console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
+      //   updateFrom(currentID, moveOptions[0]);
+      //   updateType('blocked', currentID);
+      //   paintCell('blocked', currentID);
+      //   // Remove current coord from path array
+      //   path.pop();
+      //   loop++;
     } else {
       // Sort move options by distance from target, with the shortest option at the start
       moveOptions.sort(
@@ -212,8 +212,6 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
           fieldArray[a - 1].targetDistance - fieldArray[b - 1].targetDistance
       );
       console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
-      // TODO: If top sorted item is where we moved from, move there but mark this coord as 'blocked'.
-      // This is to prevent deadend fields, where the algorithm will thrash back and forth between 2 coords endlessly.
       if (fieldArray[moveOptions[0] - 1].type === 'path') {
         updateType('blocked', currentID);
         paintCell('blocked', currentID);
