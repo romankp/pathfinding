@@ -235,4 +235,14 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
   return path;
 };
 
-console.log(findPath(fieldArray, startCell, targetCell, latDim));
+// UI stuff
+const findButton = document.getElementById('find');
+
+findButton.addEventListener(
+  'click',
+  () => {
+    console.log(findPath(fieldArray, startCell, targetCell, latDim));
+  },
+  // Making this button only work once for now
+  { once: true }
+);
