@@ -69,8 +69,16 @@ li {
   flex-flow: row nowrap;
   justify-content: space-between;
   width: 400px;
+  margin-bottom: 32px;
 }
 
 #key li {
   padding: 2px 8px;
+}
+
+/* Form */
+button {
+  padding: 8px;
+  border-radius: 2px;
+  border: 1px solid grey;
 }
