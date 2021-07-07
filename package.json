@@ -1,0 +1,23 @@
+{
+  "name": "pathfinding",
+  "version": "1.0.0",
+  "description": "Messing around with pathfinding algorithms",
+  "main": "script.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/romankp/pathfinding.git"
+  },
+  "keywords": [
+    "path",
+    "finding"
+  ],
+  "author": "Roman Pougatchev",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/romankp/pathfinding/issues"
+  },
+  "homepage": "https://github.com/romankp/pathfinding#readme"
+}
