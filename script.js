@@ -1,3 +1,5 @@
+import { initUI } from './ui';
+
 const returnX = (dimVal, workingVal) => {
   const xRemainder = workingVal % dimVal;
   return xRemainder === 0 ? dimVal : xRemainder;
@@ -236,13 +238,4 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
 };
 
 // UI stuff
-const findButton = document.getElementById('find');
-
-findButton.addEventListener(
-  'click',
-  () => {
-    console.log(findPath(fieldArray, startCell, targetCell, latDim));
-  },
-  // Making this button only work once for now
-  { once: true }
-);
+initUI();
