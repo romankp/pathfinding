@@ -14,4 +14,4 @@ I want to mess around with some pathfinding algorithms and y'all can't stop me!
 - Randomize start coordinate
 - Randomize end/target coordinate
 - Randomize obstacles
-- Do I want a webserver? Maybe throw that in
+- ~~Do I want a webserver? Maybe throw that in~~
