@@ -4,6 +4,7 @@
   "description": "Messing around with pathfinding algorithms",
   "main": "script.js",
   "scripts": {
+    "start": "http-server ./",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -19,5 +20,8 @@
   "bugs": {
     "url": "https://github.com/romankp/pathfinding/issues"
   },
-  "homepage": "https://github.com/romankp/pathfinding#readme"
+  "homepage": "https://github.com/romankp/pathfinding#readme",
+  "devDependencies": {
+    "http-server": "^0.12.3"
+  }
 }
