@@ -238,4 +238,4 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
 };
 
 // UI stuff
-initUI();
+initUI(findPath(fieldArray, startCell, targetCell, latDim));
