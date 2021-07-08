@@ -1,3 +1,4 @@
+import { initField } from './field';
 import { initUI } from './ui';
 
 const returnX = (dimVal, workingVal) => {
