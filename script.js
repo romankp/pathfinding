@@ -1,5 +1,5 @@
-import { initField } from './field';
-import { initUI } from './ui';
+// import { initField } from './field';
+import { initUI } from './ui.js';
 
 const returnX = (dimVal, workingVal) => {
   const xRemainder = workingVal % dimVal;
@@ -239,4 +239,6 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
 };
 
 // UI stuff
-initUI(findPath(fieldArray, startCell, targetCell, latDim));
+// TODO: Fix ui init without calling findPath().
+
+// initUI(findPath(fieldArray, startCell, targetCell, latDim));
