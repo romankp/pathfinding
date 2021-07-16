@@ -239,6 +239,4 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
 };
 
 // UI stuff
-// TODO: Fix ui init without calling findPath().
-
-// initUI(findPath(fieldArray, startCell, targetCell, latDim));
+initUI(fieldArray, startCell, targetCell, latDim, findPath);
