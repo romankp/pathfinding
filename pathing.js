@@ -87,7 +87,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       workingFieldArray
     );
 
-    console.log(moveOptions);
+    console.log(`Available options before sort -> ${moveOptions}`);
     markCheckedOptions(moveOptions, workingFieldArray);
 
     if (moveOptions.some(option => option === targetCellID)) {
@@ -117,9 +117,12 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // Sort move options by distance from target, with the shortest option at the start
       moveOptions.sort(
         (a, b) =>
-          workingFieldArray[a - 1].targetDistance - workingFieldArray[b - 1].targetDistance
+          workingFieldArray[a - 1].targetDistance -
+          workingFieldArray[b - 1].targetDistance
       );
-      console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
+      console.log(
+        `Deciding options: Current ID --> ${currentID}, After sort --> ${moveOptions}`
+      );
       if (workingFieldArray[moveOptions[0] - 1].type === 'path') {
         updateType('blocked', currentID);
         paintCell('blocked', currentID);
@@ -138,7 +141,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // loop++;
     }
   }
-  console.log(`DEBUG: final path array -> ${JSON.stringify(path, null, 2)}`)
+  console.log(`DEBUG: final path array -> ${JSON.stringify(path, null, 2)}`);
   return path;
 };
 
