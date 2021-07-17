@@ -1,4 +1,5 @@
-import { createFieldArray } from './field.js';
+import { createFieldArray } from './fieldData.js';
+import { renderField, paintCell } from './fieldRender.js';
 import { initUI } from './ui.js';
 
 // Describe obstacle positions and construct field array
@@ -6,39 +7,13 @@ const latDim = 7;
 const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
 const fieldArray = createFieldArray(latDim, obstacles);
 
+console.log(`DEBUG: field array -> ${JSON.stringify(fieldArray, null, 2)}`);
+
 // Render field
 const fieldEl = document.getElementById('field');
 
-const renderField = (fieldArray, fieldEl, dim) => {
-  const gridRepeat = `repeat(${dim}, auto)`;
-  let elStyle = fieldEl.style;
-  elStyle.gridTemplateColumns = gridRepeat;
-  elStyle.gridTemplateRows = gridRepeat;
-  fieldArray.forEach(({ id, type }) => {
-    const cell = document.createElement('li');
-    cell.id = `${id}`;
-    cell.className = `${type}`;
-    fieldEl.append(cell);
-  });
-};
-
-// Amend cell class name to add context color to rendered field
-const paintCell = (type, id) => {
-  const optionLI = document.getElementById(`${id}`);
-  if (type === 'option' && optionLI.className === 'empty') {
-    optionLI.className = 'empty considered';
-  }
-  if (type === 'path') {
-    optionLI.className = 'empty path';
-  }
-  if (type === 'blocked') {
-    optionLI.className = 'empty blocked';
-  }
-};
-
 // Render field visual
 renderField(fieldArray, fieldEl, latDim);
-console.log(fieldArray);
 
 // The fun stuff
 const startCell = fieldArray.find(({ type }) => type === 'start');

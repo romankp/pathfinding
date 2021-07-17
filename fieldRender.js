@@ -1,0 +1,28 @@
+const renderField = (fieldArray, fieldEl, dim) => {
+  const gridRepeat = `repeat(${dim}, auto)`;
+  let elStyle = fieldEl.style;
+  elStyle.gridTemplateColumns = gridRepeat;
+  elStyle.gridTemplateRows = gridRepeat;
+  fieldArray.forEach(({ id, type }) => {
+    const cell = document.createElement('li');
+    cell.id = `${id}`;
+    cell.className = `${type}`;
+    fieldEl.append(cell);
+  });
+};
+
+// Amend cell class name to add context color to rendered field
+const paintCell = (type, id) => {
+  const optionLI = document.getElementById(`${id}`);
+  if (type === 'option' && optionLI.className === 'empty') {
+    optionLI.className = 'empty considered';
+  }
+  if (type === 'path') {
+    optionLI.className = 'empty path';
+  }
+  if (type === 'blocked') {
+    optionLI.className = 'empty blocked';
+  }
+};
+
+export { renderField, paintCell };
