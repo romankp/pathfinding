@@ -157,6 +157,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
       // loop++;
     }
   }
+  console.log(`DEBUG: final path array -> ${JSON.stringify(path, null, 2)}`)
   return path;
 };
 
