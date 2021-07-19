@@ -132,7 +132,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
         path.splice(-2, 2);
         // loop++;
       }
-      if (!(workingFieldArray[currentID - 1].type === 'path')) {
+      if (!workingFieldArray[moveOptions[0] - 1].from) {
         updateFrom(currentID, moveOptions[0]);
       }
       updateType('path', moveOptions[0]);
