@@ -9,7 +9,6 @@ I want to mess around with some pathfinding algorithms and y'all can't stop me!
 
 ## To do:
 
-- Fix `from` values in final path array being missed, or incorrect due to backtracking 
 - Form entry to set lateral dimension of field
 - Randomize start coordinate
 - Randomize end/target coordinate
