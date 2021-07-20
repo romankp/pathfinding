@@ -6,6 +6,7 @@ const renderField = (fieldArray, fieldEl, dim) => {
   fieldArray.forEach(({ id, type }) => {
     const cell = document.createElement('li');
     cell.id = `${id}`;
+    cell.innerText = `${id}`;
     cell.className = `${type}`;
     fieldEl.append(cell);
   });

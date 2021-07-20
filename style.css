@@ -64,6 +64,13 @@ li {
   color: white;
 }
 
+#field li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-size: 40%;
+}
+
 #key {
   display: flex;
   flex-flow: row nowrap;
