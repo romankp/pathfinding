@@ -63,6 +63,9 @@ const markCheckedOptions = (optionIDs, fieldArray) => {
   });
 };
 
+// TODO: Fix from to represent algorithm travel, accross the field, not just down the path itself.
+// Field array items should describe the full path traveled, including backtracking
+
 const updateFrom = (currentID, pathID) => {
   workingFieldArray[pathID - 1].from = currentID;
 };
@@ -142,6 +145,13 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
     }
   }
   console.log(`DEBUG: final path array -> ${JSON.stringify(path, null, 2)}`);
+  // console.log(
+  //   `DEBUG: field array after path -> ${JSON.stringify(
+  //     workingFieldArray,
+  //     null,
+  //     2
+  //   )}`
+  // );
   return path;
 };
 
