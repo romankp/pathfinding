@@ -30,7 +30,7 @@ const returnCoordObj = (i, dimVal, type) => {
     targetDistance: returnDistance(dimVal, x, y),
     type: type,
     checked: false,
-    from: null,
+    from: [],
   };
 };
 

@@ -67,7 +67,7 @@ const markCheckedOptions = (optionIDs, fieldArray) => {
 // Field array items should describe the full path traveled, including backtracking
 
 const updateFrom = (currentID, pathID) => {
-  workingFieldArray[pathID - 1].from = currentID;
+  workingFieldArray[pathID - 1].from.push(currentID);
 };
 
 const updateType = (string, pathID) => {
@@ -135,9 +135,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
         path.splice(-2, 2);
         // loop++;
       }
-      if (!workingFieldArray[moveOptions[0] - 1].from) {
-        updateFrom(currentID, moveOptions[0]);
-      }
+      updateFrom(currentID, moveOptions[0]);
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);
       path.push(workingFieldArray[moveOptions[0] - 1]);

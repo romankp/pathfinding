@@ -8,7 +8,7 @@ const latDim = 7;
 const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
 const fieldArray = createFieldArray(latDim, obstacles);
 
-// We don't really need this right now but it'll be good 
+// We don't really need this right now but it'll be good
 // for debugging in the future, when initial values become dynamic
 console.log(`DEBUG: lateral dim of field -> ${latDim}`);
 console.log(`DEBUG: initial obstacles -> ${obstacles}`);
@@ -25,4 +25,6 @@ const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
 
 // UI stuff
-initUI(() => {findPath(fieldArray, startCell, targetCell, latDim)});
+initUI(() => {
+  findPath(fieldArray, startCell, targetCell, latDim);
+});
