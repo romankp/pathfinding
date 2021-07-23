@@ -6,7 +6,7 @@ import { initButton } from './ui.js';
 // Describe obstacle positions and construct field array
 const latDim = 7;
 const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
-const fieldArray = createFieldArray(latDim, obstacles);
+let fieldArray = createFieldArray(latDim, obstacles);
 
 // We don't really need this right now but it'll be good
 // for debugging in the future, when initial values become dynamic
@@ -25,6 +25,10 @@ const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
 
 // UI stuff
+initButton('randomize', () => {
+  fieldArray = createFieldArray(latDim, obstacles);
+  renderField(fieldArray, fieldEl, latDim);
+});
 initButton('find', () => {
   findPath(fieldArray, startCell, targetCell, latDim);
 });

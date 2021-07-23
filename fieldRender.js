@@ -3,6 +3,12 @@ const renderField = (fieldArray, fieldEl, dim) => {
   let elStyle = fieldEl.style;
   elStyle.gridTemplateColumns = gridRepeat;
   elStyle.gridTemplateRows = gridRepeat;
+
+  // Remove all previously rendered li elements.
+  // We take this shortcut because we're certain the child lis
+  // have no attached event handlers
+  fieldEl.innerHTML = '';
+
   fieldArray.forEach(({ id, type }) => {
     const cell = document.createElement('li');
     cell.id = `${id}`;
