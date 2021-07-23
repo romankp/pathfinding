@@ -1,7 +1,7 @@
 import { createFieldArray } from './fieldData.js';
 import { renderField } from './fieldRender.js';
 import { findPath } from './pathing.js';
-import { initUI } from './ui.js';
+import { initButton } from './ui.js';
 
 // Describe obstacle positions and construct field array
 const latDim = 7;
@@ -25,6 +25,6 @@ const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
 
 // UI stuff
-initUI(() => {
+initButton('find', () => {
   findPath(fieldArray, startCell, targetCell, latDim);
 });

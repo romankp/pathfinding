@@ -1,16 +1,16 @@
-const initUI = triggeredMethod => {
-  const findButton = document.getElementById('find');
+const initButton = (id, triggeredMethod) => {
+  const buttonEl = document.getElementById(id);
 
-  findButton.addEventListener(
+  buttonEl.addEventListener(
     'click',
     () => {
       // This notation is a bit weird but we've basically passed findPath()
-      // with arguments, wrapped in an anonymous function, so that it's invoked here. 
+      // with arguments, wrapped in an anonymous function, so that it's invoked here.
       triggeredMethod();
     },
     // Making this button only work once for now
-    { once: true }
+    { once: id === 'find' ? true : false }
   );
 };
 
-export { initUI };
+export { initButton };
