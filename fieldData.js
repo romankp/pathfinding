@@ -34,6 +34,10 @@ const returnCoordObj = (i, dimVal, type) => {
   };
 };
 
+const randomizeObstacle = () => {
+  return Math.random() > 0.3 ? 'empty' : 'obstacle';
+};
+
 const createFieldArray = (dimVal, obstacles) => {
   const arrayLength = dimVal ** 2;
   const finalArray = [];
@@ -42,11 +46,15 @@ const createFieldArray = (dimVal, obstacles) => {
       finalArray.push(returnCoordObj(i, dimVal, 'start'));
     } else if (i === arrayLength) {
       finalArray.push(returnCoordObj(i, dimVal, 'target'));
-    } else if (obstacles.some(pos => pos === i)) {
-      finalArray.push(returnCoordObj(i, dimVal, 'obstacle'));
     } else {
-      finalArray.push(returnCoordObj(i, dimVal, 'empty'));
+      finalArray.push(returnCoordObj(i, dimVal, randomizeObstacle()));
     }
+
+    // else if (obstacles.some(pos => pos === i)) {
+    //   finalArray.push(returnCoordObj(i, dimVal, 'obstacle'));
+    // } else {
+    //   finalArray.push(returnCoordObj(i, dimVal, 'empty'));
+    // }
   }
   return finalArray;
 };
