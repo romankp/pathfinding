@@ -26,3 +26,4 @@ I want to mess around with some pathfinding algorithms and y'all can't stop me!
 - Form entry to set lateral dimension of field
 - Randomize start coordinate
 - Randomize end/target coordinate
+- Add logic to check subsequent move options when current option weights are identical (logic will currently pick the "first" option of the two, not the best in terms of move efficiency)
