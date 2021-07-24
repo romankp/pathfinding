@@ -26,4 +26,3 @@ I want to mess around with some pathfinding algorithms and y'all can't stop me!
 - Form entry to set lateral dimension of field
 - Randomize start coordinate
 - Randomize end/target coordinate
-- Randomize obstacles
