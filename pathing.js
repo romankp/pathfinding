@@ -1,7 +1,6 @@
 import { paintCell } from './fieldRender.js';
 
 let workingFieldArray = [];
-let foundOnce = false;
 
 // Using remainder to address position ID being checked along
 // the left or right edge of the field, where an option will appear along
@@ -75,8 +74,8 @@ const updateType = (string, pathID) => {
   workingFieldArray[pathID - 1].type = string;
 };
 
-const findPath = (fieldArray, startCell, targetCell, latDim) => {
-  if (foundOnce) {
+const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
+  if (found) {
     return;
   }
 
@@ -155,7 +154,6 @@ const findPath = (fieldArray, startCell, targetCell, latDim) => {
   //     2
   //   )}`
   // );
-  foundOnce = true;
   return path;
 };
 

@@ -23,12 +23,16 @@ renderField(fieldArray, fieldEl, latDim);
 // Again, this will be neccessary in the future, when these are dynamic or random
 const startCell = fieldArray.find(({ type }) => type === 'start');
 const targetCell = fieldArray.find(({ type }) => type === 'target');
+let found = false;
 
 // UI stuff
 initButton('randomize', () => {
   fieldArray = createFieldArray(latDim, obstacles);
   renderField(fieldArray, fieldEl, latDim);
+  found = false;
 });
 initButton('find', () => {
-  findPath(fieldArray, startCell, targetCell, latDim);
+  findPath(fieldArray, startCell, targetCell, latDim, found);
+  // Prevent subsequent actions on click events until obstacle randomization occurs
+  found = true;
 });
