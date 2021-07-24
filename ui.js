@@ -2,8 +2,8 @@ const initButton = (id, triggeredMethod) => {
   const buttonEl = document.getElementById(id);
 
   buttonEl.addEventListener('click', () => {
-    // This notation is a bit weird but we've basically passed findPath()
-    // with arguments, wrapped in an anonymous function, so that it's invoked here.
+    // This notation is a bit weird but wrapping the method in an anonymous function
+    // allows us to pass down arguments without invoking it
     triggeredMethod();
   });
 };
