@@ -35,7 +35,7 @@ const returnCoordObj = (i, dimVal, type) => {
 };
 
 const randomizeObstacle = () => {
-  return Math.random() > 0.3 ? 'empty' : 'obstacle';
+  return Math.random() > 0.35 ? 'empty' : 'obstacle';
 };
 
 const createFieldArray = (dimVal, obstacles) => {

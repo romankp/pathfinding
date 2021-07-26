@@ -94,6 +94,14 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       workingFieldArray
     );
 
+    if (moveOptions.length === 0) {
+      console.log(
+        'No empty move options. Target coordinate was not reached. Final path array:'
+      );
+      console.log(JSON.stringify(path, null, 2));
+      return;
+    }
+
     console.log(`Available options before sort -> ${moveOptions}`);
     markCheckedOptions(moveOptions, workingFieldArray);
 
