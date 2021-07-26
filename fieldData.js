@@ -49,12 +49,6 @@ const createFieldArray = (dimVal, obstacles) => {
     } else {
       finalArray.push(returnCoordObj(i, dimVal, randomizeObstacle()));
     }
-
-    // else if (obstacles.some(pos => pos === i)) {
-    //   finalArray.push(returnCoordObj(i, dimVal, 'obstacle'));
-    // } else {
-    //   finalArray.push(returnCoordObj(i, dimVal, 'empty'));
-    // }
   }
   return finalArray;
 };
