@@ -120,8 +120,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       //   // a higher distance value (lower sort order) becomes more likely.
       //   // Need to create a solution here that removes exploratory steps that end up backtracking
       //   // when the path is not a blocked tunnel (has only 1 or 2 move options)
-      //   console.log('Hit a dead end.');
-      //   console.log(`Current ID --> ${currentID}, After sort --> ${moveOptions}`);
+
       //   updateFrom(currentID, moveOptions[0]);
       //   updateType('blocked', currentID);
       //   paintCell('blocked', currentID);
@@ -155,13 +154,6 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
     }
   }
   console.log(`DEBUG: final path array -> ${JSON.stringify(path, null, 2)}`);
-  // console.log(
-  //   `DEBUG: field array after path -> ${JSON.stringify(
-  //     workingFieldArray,
-  //     null,
-  //     2
-  //   )}`
-  // );
   return path;
 };
 
