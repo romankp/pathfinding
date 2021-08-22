@@ -3,6 +3,8 @@ import { renderField } from './fieldRender.js';
 import { findPath } from './pathing.js';
 import { initButton } from './ui.js';
 
+const debug = true;
+
 // Describe obstacle positions and construct field array
 const latDim = 7;
 const obstacles = [7, 12, 16, 17, 18, 24, 33, 34, 35];
@@ -10,9 +12,12 @@ let fieldArray = createFieldArray(latDim, obstacles);
 
 // We don't really need this right now but it'll be good
 // for debugging in the future, when initial values become dynamic
-console.log(`DEBUG: lateral dim of field -> ${latDim}`);
-console.log(`DEBUG: initial obstacles -> ${obstacles}`);
-console.log(`DEBUG: field array -> ${JSON.stringify(fieldArray, null, 2)}`);
+
+if (debug) {
+  console.log(`DEBUG: lateral dim of field -> ${latDim}`);
+  console.log(`DEBUG: initial obstacles -> ${obstacles}`);
+  console.log(`DEBUG: field array -> ${JSON.stringify(fieldArray, null, 2)}`);
+}
 
 const fieldEl = document.getElementById('field');
 
