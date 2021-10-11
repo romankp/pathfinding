@@ -38,23 +38,24 @@ const randomizeObstacle = () => {
   return Math.random() > 0.35 ? 'empty' : 'obstacle';
 };
 
-const createFieldArray = (dimVal, startPos, override) => {
-  const arrayLength = dimVal ** 2;
+const createFieldArray = (dimVal, startPos, endPos, override) => {
   const finalArray = [];
+
   if (override.length) {
     finalArray = override;
     console.warn('USING OVERRIDE');
   } else {
-    for (let i = 1; i <= arrayLength; i++) {
+    for (let i = 1; i <= endPos; i++) {
       if (i === startPos) {
         finalArray.push(returnCoordObj(i, dimVal, 'start'));
-      } else if (i === arrayLength) {
+      } else if (i === endPos) {
         finalArray.push(returnCoordObj(i, dimVal, 'target'));
       } else {
         finalArray.push(returnCoordObj(i, dimVal, randomizeObstacle()));
       }
     }
   }
+
   console.log(`field array -> ${JSON.stringify(finalArray, null, 2)}`);
   return finalArray;
 };

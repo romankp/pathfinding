@@ -15,7 +15,7 @@ console.log(`start position ID -> ${startPos}`);
 console.log(`end position ID -> ${endPos}`);
 
 // Build initial field array
-let fieldArray = createFieldArray(latDim, startPos, override);
+let fieldArray = createFieldArray(latDim, startPos, endPos, override);
 
 const fieldEl = document.getElementById('field');
 
@@ -30,7 +30,7 @@ let found = false;
 
 // UI stuff
 initButton('randomize', () => {
-  fieldArray = createFieldArray(latDim, startPos, override);
+  fieldArray = createFieldArray(latDim, startPos, endPos, override);
   renderField(fieldArray, fieldEl, latDim);
   found = false;
 });
