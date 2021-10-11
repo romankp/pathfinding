@@ -38,7 +38,7 @@ const randomizeObstacle = () => {
   return Math.random() > 0.35 ? 'empty' : 'obstacle';
 };
 
-const createFieldArray = (dimVal, override) => {
+const createFieldArray = (dimVal, startPos, override) => {
   const arrayLength = dimVal ** 2;
   const finalArray = [];
   if (override.length) {
@@ -46,7 +46,7 @@ const createFieldArray = (dimVal, override) => {
     console.warn('USING OVERRIDE');
   } else {
     for (let i = 1; i <= arrayLength; i++) {
-      if (i === 1) {
+      if (i === startPos) {
         finalArray.push(returnCoordObj(i, dimVal, 'start'));
       } else if (i === arrayLength) {
         finalArray.push(returnCoordObj(i, dimVal, 'target'));

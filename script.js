@@ -6,12 +6,16 @@ import { initButton } from './ui.js';
 // Describe initial field options and construct field array.
 // The override is used to test novel field arrays and can be defined here
 const latDim = 7;
+const startPos = 1;
+const endPos = latDim ** 2;
 const override = [];
 
 console.log(`lateral dim of field -> ${latDim}`);
+console.log(`start position ID -> ${startPos}`);
+console.log(`end position ID -> ${endPos}`);
 
 // Build initial field array
-let fieldArray = createFieldArray(latDim, override);
+let fieldArray = createFieldArray(latDim, startPos, override);
 
 const fieldEl = document.getElementById('field');
 
@@ -26,7 +30,7 @@ let found = false;
 
 // UI stuff
 initButton('randomize', () => {
-  fieldArray = createFieldArray(latDim, override);
+  fieldArray = createFieldArray(latDim, startPos, override);
   renderField(fieldArray, fieldEl, latDim);
   found = false;
 });
