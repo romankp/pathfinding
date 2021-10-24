@@ -119,6 +119,51 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       console.log(
         `Deciding options: Current ID --> ${currentID}, After sort --> ${moveOptions}`
       );
+
+      // If the first 2 sorted cell options' target distance is identical,
+      // we want to weigh them so that we don't just arbitrarily pick the first option.
+      if (
+        workingFieldArray[moveOptions[0] - 1].targetDistance ===
+        workingFieldArray[moveOptions[1] - 1].targetDistance
+      ) {
+        console.log(
+          `Options with equal targetDistance --> ${moveOptions[0]} and ${moveOptions[1]}`
+        );
+
+        // Looking ahead at the options for the two current options and isolating the closest coordinate to the end.
+        //
+        const optionA = filterOptionIDs(
+          returnOptionIDsArray(moveOptions[0], latDim),
+          workingFieldArray
+        ).sort(
+          (a, b) =>
+            workingFieldArray[a - 1].targetDistance -
+            workingFieldArray[b - 1].targetDistance
+        )[0];
+        const optionB = filterOptionIDs(
+          returnOptionIDsArray(moveOptions[1], latDim),
+          workingFieldArray
+        ).sort(
+          (a, b) =>
+            workingFieldArray[a - 1].targetDistance -
+            workingFieldArray[b - 1].targetDistance
+        )[0];
+
+        // If this number is positive, we consider it "B" weighted.
+        // As in, the option A is further from the target than B.
+
+        // For the moment, if both future options are also identical
+        // and (Math.sign returns 0), we're just going with the first option.
+        // In the future, we want to randomize or check one step further.
+        const bWeighted =
+          Math.sign(
+            workingFieldArray[optionA - 1].targetDistance -
+              workingFieldArray[optionB - 1].targetDistance
+          ) === 1;
+
+        moveOptions[0] = bWeighted ? moveOptions[1] : moveOptions[0];
+      }
+
       if (workingFieldArray[moveOptions[0] - 1].type === 'path') {
         updateType('blocked', currentID);
         paintCell('blocked', currentID);
@@ -128,6 +173,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         path.splice(-2, 2);
         // loop++;
       }
+
       updateFrom(currentID, moveOptions[0]);
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);

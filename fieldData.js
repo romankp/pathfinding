@@ -39,7 +39,7 @@ const randomizeObstacle = () => {
 };
 
 const createFieldArray = (dimVal, startPos, endPos, override) => {
-  const finalArray = [];
+  let finalArray = [];
 
   if (override.length) {
     finalArray = override;
