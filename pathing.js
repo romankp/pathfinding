@@ -131,7 +131,6 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         );
 
         // Looking ahead at the options for the two current options and isolating the closest coordinate to the end.
-        //
         const optionA = filterOptionIDs(
           returnOptionIDsArray(moveOptions[0], latDim),
           workingFieldArray
