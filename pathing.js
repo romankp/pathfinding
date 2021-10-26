@@ -68,6 +68,13 @@ const updateType = (string, pathID) => {
   workingFieldArray[pathID - 1].type = string;
 };
 
+const sortAscending = (arrayToSort, fieldArray) => {
+  return arrayToSort.sort(
+    (a, b) =>
+      fieldArray[a - 1].targetDistance - fieldArray[b - 1].targetDistance
+  );
+};
+
 const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
   if (found) {
     return;
@@ -83,7 +90,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
   // while (!targetReached && loop < 24) {
   while (!targetReached) {
     const currentID = path[path.length - 1].id;
-    const moveOptions = filterOptionIDs(
+    let moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
       workingFieldArray
     );
@@ -105,13 +112,9 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       targetReached = true;
     } else {
       // Sort move options by distance from target, with the shortest option at the start
-      moveOptions.sort(
-        (a, b) =>
-          workingFieldArray[a - 1].targetDistance -
-          workingFieldArray[b - 1].targetDistance
-      );
+      moveOptions = sortAscending(moveOptions, workingFieldArray);
       console.log(
-        `Deciding options: Current ID --> ${currentID}, After sort --> ${moveOptions}`
+        `Sorting move options for current ID --> ${currentID}. After sort --> ${moveOptions}`
       );
 
       // If the first 2 sorted cell options' target distance is identical,
@@ -125,21 +128,20 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         );
 
         // Looking ahead at the options for the two current options and isolating the closest coordinate to the end.
-        const optionA = filterOptionIDs(
-          returnOptionIDsArray(moveOptions[0], latDim),
+        const optionA = sortAscending(
+          filterOptionIDs(
+            returnOptionIDsArray(moveOptions[0], latDim),
+            workingFieldArray
+          ),
           workingFieldArray
-        ).sort(
-          (a, b) =>
-            workingFieldArray[a - 1].targetDistance -
-            workingFieldArray[b - 1].targetDistance
         )[0];
-        const optionB = filterOptionIDs(
-          returnOptionIDsArray(moveOptions[1], latDim),
+
+        const optionB = sortAscending(
+          filterOptionIDs(
+            returnOptionIDsArray(moveOptions[1], latDim),
+            workingFieldArray
+          ),
           workingFieldArray
-        ).sort(
-          (a, b) =>
-            workingFieldArray[a - 1].targetDistance -
-            workingFieldArray[b - 1].targetDistance
         )[0];
 
         // If this number is positive, we consider it "B" weighted.
