@@ -45,15 +45,12 @@ const returnOptionIDsArray = (centerID, dimVal) => {
 };
 
 const filterOptionIDs = (optionsArray, fieldArray) => {
-  const filteredOptions = optionsArray.filter(id => {
-    // We need to see if the cell has been checked to navigate dead ends
-    // but only when we also know the from position
-    const { type, checked, from } = fieldArray[id - 1];
-    return type === 'empty' || type === 'path' || type === 'target'
-      ? true
-      : false;
+  return optionsArray.filter(id => {
+    // We consider 'path' type a viable option to be able to backtrack out of a dead end
+    const viableTypes = ['empty', 'path', 'target'];
+    const { type } = fieldArray[id - 1];
+    return viableTypes.includes(type) ? true : false;
   });
-  return filteredOptions;
 };
 
 const markConsideredOptions = (optionIDs, fieldArray) => {
