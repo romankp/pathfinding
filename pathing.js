@@ -120,8 +120,9 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       // If the first 2 sorted cell options' target distance is identical,
       // we want to weigh them so that we don't just arbitrarily pick the first option.
       if (
+        moveOptions.length > 1 &&
         workingFieldArray[moveOptions[0] - 1].targetDistance ===
-        workingFieldArray[moveOptions[1] - 1].targetDistance
+          workingFieldArray[moveOptions[1] - 1].targetDistance
       ) {
         console.log(
           `Options with equal targetDistance --> ${moveOptions[0]} and ${moveOptions[1]}`
