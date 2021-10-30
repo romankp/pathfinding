@@ -184,9 +184,10 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         // So we check if the difference in distances between the top 2 options is within a small threshhold.
         // If it is, we sort the second option (non-path) to the front of the list.
         if (
+          moveOptions.length > 1 &&
           workingFieldArray[moveOptions[0] - 1].targetDistance /
             workingFieldArray[moveOptions[1] - 1].targetDistance >=
-          0.971
+            0.971
         ) {
           moveOptions[0] = moveOptions[1];
         } else {
