@@ -97,13 +97,15 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
 
     if (moveOptions.length === 0) {
       console.log(
-        'No empty move options. Target coordinate was not reached. Final path array:'
+        'No move options. Target coordinate was not reached. Final path array:'
       );
       console.log(JSON.stringify(path, null, 2));
       return;
     }
 
-    console.log(`Available options before sort -> ${moveOptions}`);
+    console.log(
+      `Current ID --> ${currentID}. Move options before sort -> ${moveOptions}`
+    );
     markConsideredOptions(moveOptions, workingFieldArray);
 
     if (moveOptions.some(option => option === targetCellID)) {
@@ -114,7 +116,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       // Sort move options by distance from target, with the shortest option at the start
       moveOptions = sortAscending(moveOptions, workingFieldArray);
       console.log(
-        `Sorting move options for current ID --> ${currentID}. After sort --> ${moveOptions}`
+        `Current ID --> ${currentID}. Sorted options --> ${moveOptions}`
       );
 
       // If the first 2 sorted cell options' target distance is identical,
