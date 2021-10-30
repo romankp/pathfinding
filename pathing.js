@@ -172,14 +172,35 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         );
       }
 
+      // If the best move option after a regular sort is to backtrack to the last path coordinate,
+      // we consider the current coordinate blocked and check to see if adjusting the 'path' option weight
+      // will allow us to move around an obstacle.
       if (workingFieldArray[moveOptions[0] - 1].type === 'path') {
-        updateType('blocked', currentID);
-        paintCell('blocked', currentID);
-        // We might change this in the future but we want to get rid of the last 2 path items in the array.
-        // In a deadend field, the current cell can move back and forth, attempting to find a possible exit from a "central" coord.
-        // Removing the last 2 entries here cleans up the path array at the end
-        path.splice(-2, 2);
-        // loop++;
+        console.log(
+          `${moveOptions[0]} is an existing path coord, checking against option ${moveOptions[1]}`
+        );
+        // In some obstacle formations (like a horizontal line where we want the path to hop backwards, around a 'corner'),
+        // an existing path coordinate may have the smallest targetDistance but may not be the best option.
+        // So we check if the difference in distances between the top 2 options is within a small threshhold.
+        // If it is, we sort the second option (non-path) to the front of the list.
+        if (
+          workingFieldArray[moveOptions[0] - 1].targetDistance /
+            workingFieldArray[moveOptions[1] - 1].targetDistance >=
+          0.971
+        ) {
+          moveOptions[0] = moveOptions[1];
+        } else {
+          // If the best option is still the existing path coord,
+          // mark the current coord as 'blocked'
+          updateType('blocked', currentID);
+          paintCell('blocked', currentID);
+          // We might change this in the future but we want to get rid of the last 2 path items in the array.
+          // In a deadend field, the current cell can move back and forth,
+          // attempting to find a possible exit from a "central" coord.
+          // Removing the last 2 entries here cleans up the path array at the end
+          path.splice(-2, 2);
+          // loop++;
+        }
       }
 
       updateFrom(currentID, moveOptions[0]);
