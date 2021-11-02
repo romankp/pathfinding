@@ -181,13 +181,13 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         );
         // In some obstacle formations (like a horizontal line where we want the path to hop backwards, around a 'corner'),
         // an existing path coordinate may have the smallest targetDistance but may not be the best option.
-        // So we check if the difference in distances between the top 2 options is within a small threshhold.
+        // So we check if the division of the top 2 options' targetDistance value is within a small threshhold.
         // If it is, we sort the second option (non-path) to the front of the list.
         if (
           moveOptions.length > 1 &&
           workingFieldArray[moveOptions[0] - 1].targetDistance /
             workingFieldArray[moveOptions[1] - 1].targetDistance >=
-            0.971
+            0.824
         ) {
           moveOptions[0] = moveOptions[1];
         } else {
