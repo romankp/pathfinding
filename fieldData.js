@@ -45,7 +45,7 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
     finalArray = override;
     console.warn('USING OVERRIDE');
   } else {
-    for (let i = 1; i <= endPos; i++) {
+    for (let i = 1; i <= dimVal ** 2; i++) {
       if (i === startPos) {
         finalArray.push(returnCoordObj(i, dimVal, 'start'));
       } else if (i === endPos) {
