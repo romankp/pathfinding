@@ -38,6 +38,10 @@ const randomizeObstacle = () => {
   return Math.random() > 0.35 ? 'empty' : 'obstacle';
 };
 
+const returnRandomID = latDim => {
+  return Math.floor(Math.random() * latDim ** 2 + 1);
+};
+
 const createFieldArray = (dimVal, startPos, endPos, override) => {
   let finalArray = [];
 
@@ -60,4 +64,4 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
   return finalArray;
 };
 
-export { createFieldArray };
+export { createFieldArray, returnRandomID };

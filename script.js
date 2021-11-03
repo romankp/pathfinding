@@ -1,4 +1,4 @@
-import { createFieldArray } from './fieldData.js';
+import { createFieldArray, returnRandomID } from './fieldData.js';
 import { renderField } from './fieldRender.js';
 import { findPath } from './pathing.js';
 import { initButton } from './ui.js';
@@ -6,8 +6,8 @@ import { initButton } from './ui.js';
 // Describe initial field options and construct field array.
 // The override is used to test novel field arrays and can be defined here
 const latDim = 7;
-let startPos = Math.floor(Math.random() * latDim ** 2 + 1);
-let endPos = Math.floor(Math.random() * latDim ** 2 + 1);
+let startPos = returnRandomID(latDim);
+let endPos = returnRandomID(latDim);
 //const override = [];
 const override = [
   {
@@ -470,8 +470,8 @@ let found = false;
 // UI stuff
 initButton('randomize', () => {
   // Reset start/end position
-  startPos = Math.floor(Math.random() * latDim ** 2 + 1);
-  endPos = Math.floor(Math.random() * latDim ** 2 + 1);
+  startPos = returnRandomID(latDim);
+  endPos = returnRandomID(latDim);
 
   fieldArray = createFieldArray(latDim, startPos, endPos, override);
   renderField(fieldArray, fieldEl, latDim);
