@@ -1,4 +1,8 @@
-import { createFieldArray, returnRandomID } from './fieldData.js';
+import {
+  createFieldArray,
+  returnRandomID,
+  returnNoncollidingID,
+} from './fieldData.js';
 import { renderField } from './fieldRender.js';
 import { findPath } from './pathing.js';
 import { initButton } from './ui.js';
@@ -7,7 +11,7 @@ import { initButton } from './ui.js';
 // The override is used to test novel field arrays and can be defined here
 const latDim = 7;
 let startPos = returnRandomID(latDim);
-let endPos = returnRandomID(latDim);
+let endPos = returnNoncollidingID(latDim, startPos);
 //const override = [];
 const override = [
   {
@@ -471,7 +475,7 @@ let found = false;
 initButton('randomize', () => {
   // Reset start/end position
   startPos = returnRandomID(latDim);
-  endPos = returnRandomID(latDim);
+  endPos = returnNoncollidingID(latDim, startPos);
 
   fieldArray = createFieldArray(latDim, startPos, endPos, override);
   renderField(fieldArray, fieldEl, latDim);

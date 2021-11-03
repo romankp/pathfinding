@@ -42,6 +42,14 @@ const returnRandomID = latDim => {
   return Math.floor(Math.random() * latDim ** 2 + 1);
 };
 
+const returnNoncollidingID = (latDim, avoidID) => {
+  let randomID = returnRandomID(latDim);
+  while (randomID === avoidID) {
+    randomID = returnRandomID(latDim);
+  }
+  return randomID;
+};
+
 const createFieldArray = (dimVal, startPos, endPos, override) => {
   let finalArray = [];
 
@@ -64,4 +72,4 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
   return finalArray;
 };
 
-export { createFieldArray, returnRandomID };
+export { createFieldArray, returnRandomID, returnNoncollidingID };
