@@ -59,11 +59,11 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
   } else {
     for (let i = 1; i <= dimVal ** 2; i++) {
       if (i === startPos) {
-        finalArray.push(returnCoordObj(i, dimVal, 'start'));
+        finalArray.push(returnCoordObj(i, dimVal, 'start', endPos));
       } else if (i === endPos) {
-        finalArray.push(returnCoordObj(i, dimVal, 'target'));
+        finalArray.push(returnCoordObj(i, dimVal, 'target', endPos));
       } else {
-        finalArray.push(returnCoordObj(i, dimVal, randomizeObstacle()));
+        finalArray.push(returnCoordObj(i, dimVal, randomizeObstacle(), endPos));
       }
     }
   }
