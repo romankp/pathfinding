@@ -8,26 +8,29 @@ const returnY = (dimVal, workingVal) => {
 };
 
 // Returns distance of cell from target with a bit of rounding
-const returnDistance = (dimVal, x, y) => {
-  const yDist = dimVal - y;
-  const xDist = dimVal - x;
-  if (dimVal === x) {
+const returnDistance = (dimVal, x, y, endPos) => {
+  // We use Math.abs here to make sure the number is returned positive
+  const xDist = Math.abs(returnX(dimVal, endPos) - x);
+  const yDist = Math.abs(returnY(dimVal, endPos) - y);
+
+  if (xDist === 0) {
     return yDist;
   }
-  if (dimVal === y) {
+  if (yDist === 0) {
     return xDist;
   }
   return Number(Math.round(Math.hypot(yDist, xDist) + 'e3') + 'e-3');
 };
 
-const returnCoordObj = (i, dimVal, type) => {
+const returnCoordObj = (i, dimVal, type, endPos) => {
   const x = returnX(dimVal, i);
   const y = returnY(dimVal, i);
+
   return {
     id: i,
     x: x,
     y: y,
-    targetDistance: returnDistance(dimVal, x, y),
+    targetDistance: returnDistance(dimVal, x, y, endPos),
     type: type,
     checked: false,
     from: [],
