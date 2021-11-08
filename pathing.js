@@ -121,12 +121,13 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
   const targetCellID = targetCell.id;
   let path = [startCell];
   let targetReached = false;
+  let loopCount = 0;
+  const loopLimit = latDim ** 2;
   workingFieldArray = fieldArray;
-  // let loop = 0;
 
   // Gonna' keep this guy here for testing.
   // while (!targetReached && loop < 24) {
-  while (!targetReached) {
+  while (!targetReached && loopCount <= loopLimit) {
     const currentID = path[path.length - 1].id;
     let moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
@@ -138,6 +139,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         'No move options. Target coordinate was not reached. Final path array:'
       );
       console.log(JSON.stringify(path, null, 2));
+      console.log(`Final loop count -> ${loopCount}`);
       return;
     }
 
@@ -200,7 +202,6 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
           // attempting to find a possible exit from a "central" coord.
           // Removing the last 2 entries here cleans up the path array at the end
           path.splice(-2, 2);
-          // loop++;
         }
       }
 
@@ -208,10 +209,11 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       updateType('path', moveOptions[0]);
       paintCell('path', moveOptions[0]);
       path.push(workingFieldArray[moveOptions[0] - 1]);
-      // loop++;
+      loopCount++;
     }
   }
-  console.log(`DEBUG: final path array -> ${JSON.stringify(path, null, 2)}`);
+  console.log(`Final path array -> ${JSON.stringify(path, null, 2)}`);
+  console.log(`Final loop count -> ${loopCount}`);
   return path;
 };
 
