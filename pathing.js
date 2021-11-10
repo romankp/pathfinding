@@ -46,8 +46,8 @@ const returnOptionIDsArray = (centerID, dimVal) => {
 
 const filterOptionIDs = (optionsArray, fieldArray) => {
   return optionsArray.filter(id => {
-    // We consider 'path' type a viable option to be able to backtrack out of a dead end
-    const viableTypes = ['empty', 'path', 'target'];
+    // We consider 'path' and 'start' types a viable option to be able to backtrack out of a dead end
+    const viableTypes = ['empty', 'path', 'start', 'target'];
     const { type } = fieldArray[id - 1];
     return viableTypes.includes(type) ? true : false;
   });
@@ -125,8 +125,6 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
   const loopLimit = latDim ** 2;
   workingFieldArray = fieldArray;
 
-  // Gonna' keep this guy here for testing.
-  // while (!targetReached && loop < 24) {
   while (!targetReached && loopCount <= loopLimit) {
     const currentID = path[path.length - 1].id;
     let moveOptions = filterOptionIDs(
@@ -206,8 +204,11 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       }
 
       updateFrom(currentID, moveOptions[0]);
-      updateType('path', moveOptions[0]);
-      paintCell('path', moveOptions[0]);
+      // If the move option is the start cell, we want to leave the type and paint job as is
+      if (startCell.id !== moveOptions[0]) {
+        updateType('path', moveOptions[0]);
+        paintCell('path', moveOptions[0]);
+      }
       path.push(workingFieldArray[moveOptions[0] - 1]);
       loopCount++;
     }
