@@ -9,7 +9,7 @@ import { initButton } from './ui.js';
 
 // Describe initial field options and construct field array.
 // The override is used to test novel field arrays and can be defined here
-const latDim = 7;
+const latDim = 10;
 let startPos = returnRandomID(latDim);
 let endPos = returnNoncollidingID(latDim, startPos);
 const override = [];

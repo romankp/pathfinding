@@ -125,7 +125,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
   const loopLimit = latDim ** 2;
   workingFieldArray = fieldArray;
 
-  while (!targetReached && loopCount <= loopLimit) {
+  while (!targetReached && loopCount < loopLimit) {
     const currentID = path[path.length - 1].id;
     let moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
@@ -214,7 +214,13 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
     }
   }
   console.log(`Final path array -> ${JSON.stringify(path, null, 2)}`);
-  console.log(`Final loop count -> ${loopCount}`);
+  if (loopCount === loopLimit) {
+    console.warn(
+      `Loop limit reached without resolution -> ${loopCount}. Pathfinding stopped`
+    );
+  } else {
+    console.log(`Final loop count -> ${loopCount}`);
+  }
   return path;
 };
 
