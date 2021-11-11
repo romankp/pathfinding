@@ -917,17 +917,19 @@ const override = [
 ];
 
 console.log(`lateral dim of field -> ${latDim}`);
-console.log(`start position ID -> ${startPos}`);
-console.log(`end position ID -> ${endPos}`);
+if (override.length < 1) {
+  console.log(`start position ID -> ${startPos}`);
+  console.log(`end position ID -> ${endPos}`);
+}
 
 // Build initial field array
 let fieldArray = createFieldArray(latDim, startPos, endPos, override);
 
-const fieldEl = document.getElementById('field');
-
 // Render field visual
+const fieldEl = document.getElementById('field');
 renderField(fieldArray, fieldEl, latDim);
 
+// Some initial meta data
 let found = false;
 
 // UI stuff
