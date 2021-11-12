@@ -56,7 +56,9 @@ const filterOptionIDs = (optionsArray, fieldArray) => {
 const markConsideredOptions = (optionIDs, fieldArray) => {
   optionIDs.forEach(id => {
     fieldArray[id - 1].checked = true;
-    paintCell('option', id);
+    if (fieldArray[id - 1].type !== 'start') {
+      paintCell('option', id);
+    }
   });
 };
 
@@ -193,8 +195,10 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         } else {
           // If the best option is still the existing path coord,
           // mark the current coord as 'blocked'
-          updateType('blocked', currentID);
-          paintCell('blocked', currentID);
+          if (startCell.id !== currentID) {
+            updateType('blocked', currentID);
+            paintCell('blocked', currentID);
+          }
           // We might change this in the future but we want to get rid of the last 2 path items in the array.
           // In a deadend field, the current cell can move back and forth,
           // attempting to find a possible exit from a "central" coord.
