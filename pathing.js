@@ -77,12 +77,12 @@ const sortAscending = (arrayToSort, fieldArray) => {
   );
 };
 
-const pickFromEqualOptions = (moveOptions, latDim, workingFieldArray) => {
+const checkFork = (moveOptions, latDim, workingFieldArray) => {
   console.log(
     `Options with equal targetDistance --> ${moveOptions[0]} and ${moveOptions[1]}`
   );
 
-  // Find the best move option for each identically weighted coordinate,
+  // Find the best move option from the 2 highest weighted coordinates,
   // to decide which way the path should turn.
   const optionA = sortAscending(
     filterOptionIDs(
@@ -100,7 +100,7 @@ const pickFromEqualOptions = (moveOptions, latDim, workingFieldArray) => {
     workingFieldArray
   )[0];
 
-  // If number sign is positive, we consider it "B" weighted.
+  // If Math.sign is positive, we consider it "B" weighted.
   // As in, option A (index 0) is further from the target than B (index 1).
 
   // For the moment, if both future options are also identical
@@ -159,6 +159,13 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         `Current ID --> ${currentID}. Sorted options --> ${moveOptions}`
       );
 
+      // If there are only 2 sorted cell options,
+      // we want to weigh future paths radiating from them
+      // so that we don't just arbitrarily pick the first option.
+      if (moveOptions.length === 2) {
+        moveOptions[0] = checkFork(moveOptions, latDim, workingFieldArray);
+      }
+
       // If the first 2 sorted cell options' target distance is identical,
       // we want to weigh future paths radiating from them
       // so that we don't just arbitrarily pick the first option.
@@ -167,11 +174,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         workingFieldArray[moveOptions[0] - 1].targetDistance ===
           workingFieldArray[moveOptions[1] - 1].targetDistance
       ) {
-        moveOptions[0] = pickFromEqualOptions(
-          moveOptions,
-          latDim,
-          workingFieldArray
-        );
+        moveOptions[0] = checkFork(moveOptions, latDim, workingFieldArray);
       }
 
       // If the best move option after a regular sort is to backtrack to the last path coordinate,

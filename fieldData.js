@@ -25,12 +25,14 @@ const returnDistance = (dimVal, x, y, endPos) => {
 const returnCoordObj = (i, dimVal, type, endPos) => {
   const x = returnX(dimVal, i);
   const y = returnY(dimVal, i);
+  const distance = returnDistance(dimVal, x, y, endPos);
 
   return {
     id: i,
     x: x,
     y: y,
-    targetDistance: returnDistance(dimVal, x, y, endPos),
+    // We enlarge the distance value for the start coord to make it a less favorable as a move option
+    targetDistance: type === 'start' ? distance + 1 : distance,
     type: type,
     checked: false,
     from: [],

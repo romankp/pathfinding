@@ -423,7 +423,7 @@ const override = [
     id: 46,
     x: 6,
     y: 5,
-    targetDistance: 2.236,
+    targetDistance: 3.236,
     type: 'start',
     checked: false,
     from: [],
