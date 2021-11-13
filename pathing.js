@@ -159,21 +159,17 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
         `Current ID --> ${currentID}. Sorted options --> ${moveOptions}`
       );
 
-      // If there are only 2 sorted cell options,
+      // If there are only 2 sorted cell options
+      // or the 2 best options' target distance is identical,
       // we want to weigh future paths radiating from them
       // so that we don't just arbitrarily pick the first option.
-      if (moveOptions.length === 2) {
-        moveOptions[0] = checkFork(moveOptions, latDim, workingFieldArray);
-      }
+      const forkConditions =
+        moveOptions.length === 2 ||
+        (moveOptions.length > 1 &&
+          workingFieldArray[moveOptions[0] - 1].targetDistance ===
+            workingFieldArray[moveOptions[1] - 1].targetDistance);
 
-      // If the first 2 sorted cell options' target distance is identical,
-      // we want to weigh future paths radiating from them
-      // so that we don't just arbitrarily pick the first option.
-      if (
-        moveOptions.length > 1 &&
-        workingFieldArray[moveOptions[0] - 1].targetDistance ===
-          workingFieldArray[moveOptions[1] - 1].targetDistance
-      ) {
+      if (forkConditions) {
         moveOptions[0] = checkFork(moveOptions, latDim, workingFieldArray);
       }
 
