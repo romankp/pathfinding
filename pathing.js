@@ -79,11 +79,11 @@ const sortAscending = (arrayToSort, fieldArray) => {
 
 const checkFork = (moveOptions, latDim, workingFieldArray) => {
   console.log(
-    `Options with equal targetDistance --> ${moveOptions[0]} and ${moveOptions[1]}`
+    `Fork detected, deciding between --> ${moveOptions[0]} and ${moveOptions[1]}`
   );
 
-  // Find the best move option from the 2 highest weighted coordinates,
-  // to decide which way the path should turn.
+  // Find the best move option from the 2 highest weighted coordinates
+  // by looking at each of their options
   const optionA = sortAscending(
     filterOptionIDs(
       returnOptionIDsArray(moveOptions[0], latDim),
