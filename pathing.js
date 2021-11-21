@@ -177,9 +177,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       // we consider the current coordinate blocked and check to see if adjusting the 'path' option weight
       // will allow us to move around an obstacle.
       if (workingFieldArray[moveOptions[0] - 1].type === 'path') {
-        console.log(
-          `${moveOptions[0]} is an existing path coord, checking against option ${moveOptions[1]}`
-        );
+        console.log(`${moveOptions[0]} is an existing path coord`);
         // In some obstacle formations (like a horizontal line where we want the path to hop backwards, around a 'corner'),
         // an existing path coordinate may have the smallest targetDistance but may not be the best option.
         // So we check if the division of the top 2 options' targetDistance value is within a small threshhold.
@@ -190,6 +188,9 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
             workingFieldArray[moveOptions[1] - 1].targetDistance >=
             0.824
         ) {
+          console.log(
+            `going with ${moveOptions[1]} to avoid poorly weighted path coord`
+          );
           moveOptions[0] = moveOptions[1];
         } else {
           // If the best option is still the existing path coord,
