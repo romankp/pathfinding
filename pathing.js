@@ -138,6 +138,11 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
       console.log(
         'No move options. Target coordinate was not reached. Final path array:'
       );
+      if (startCell.id !== currentID) {
+        console.log(`Marking ${currentID} as blocked`);
+        updateType('blocked', currentID);
+        paintCell('blocked', currentID);
+      }
       console.log(JSON.stringify(path, null, 2));
       console.log(`Final loop count -> ${loopCount}`);
       return;
