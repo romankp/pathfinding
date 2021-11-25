@@ -189,22 +189,22 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
             0.824
         ) {
           console.log(
-            `going with ${moveOptions[1]} to avoid poorly weighted path coord`
+            `Going with ${moveOptions[1]} to avoid poorly weighted path coord`
           );
           moveOptions[0] = moveOptions[1];
-        } else {
-          // If the best option is still the existing path coord,
-          // mark the current coord as 'blocked'
-          if (startCell.id !== currentID) {
-            updateType('blocked', currentID);
-            paintCell('blocked', currentID);
-          }
-          // We might change this in the future but we want to get rid of the last 2 path items in the array.
-          // In a deadend field, the current cell can move back and forth,
-          // attempting to find a possible exit from a "central" coord.
-          // Removing the last 2 entries here cleans up the path array at the end
-          path.splice(-2, 2);
         }
+        // If the best option is still the existing path coord,
+        // mark the current coord as 'blocked'
+        if (startCell.id !== currentID) {
+          console.log(`Marking ${currentID} as blocked`);
+          updateType('blocked', currentID);
+          paintCell('blocked', currentID);
+        }
+        // We might change this in the future but we want to get rid of the last 2 path items in the array.
+        // In a deadend field, the current cell can move back and forth,
+        // attempting to find a possible exit from a "central" coord.
+        // Removing the last 2 entries here cleans up the path array at the end
+        path.splice(-2, 2);
       }
 
       updateFrom(currentID, moveOptions[0]);
