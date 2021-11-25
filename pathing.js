@@ -135,14 +135,18 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
     );
 
     if (moveOptions.length === 0) {
-      console.log(
-        'No move options. Target coordinate was not reached. Final path array:'
-      );
       if (startCell.id !== currentID) {
         console.log(`Marking ${currentID} as blocked`);
         updateType('blocked', currentID);
         paintCell('blocked', currentID);
       }
+      // In a deadend field, the current cell can move back and forth,
+      // attempting to find a possible exit from a "central" coord.
+      // Removing the last 2 entries here cleans up the final path array
+      if (path.length > 2) {
+        path.splice(-2, 2);
+      }
+      console.log('No move options. Target was not reached. Final path array:');
       console.log(JSON.stringify(path, null, 2));
       console.log(`Final loop count -> ${loopCount}`);
       return;
@@ -205,11 +209,12 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
           updateType('blocked', currentID);
           paintCell('blocked', currentID);
         }
-        // We might change this in the future but we want to get rid of the last 2 path items in the array.
         // In a deadend field, the current cell can move back and forth,
         // attempting to find a possible exit from a "central" coord.
-        // Removing the last 2 entries here cleans up the path array at the end
-        path.splice(-2, 2);
+        // Removing the last 2 entries here cleans up the final path array
+        if (path.length > 2) {
+          path.splice(-2, 2);
+        }
       }
 
       updateFrom(currentID, moveOptions[0]);
