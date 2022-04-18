@@ -1,3 +1,13 @@
+import {
+  createFieldArray,
+  returnRandomID,
+  returnNoncollidingID,
+} from './fieldData.js';
+import { findPath } from './pathing.js';
+import { renderField } from './fieldRender.js';
+
+let found = false;
+
 const initButton = (id, triggeredMethod) => {
   const buttonEl = document.getElementById(id);
 
@@ -8,4 +18,27 @@ const initButton = (id, triggeredMethod) => {
   });
 };
 
-export { initButton };
+const initUI = (latDim, startPos, endPos, override, fieldArray, fieldEl) => {
+  initButton('randomize', () => {
+    // Reset start/end position
+    startPos = returnRandomID(latDim);
+    endPos = returnNoncollidingID(latDim, startPos);
+
+    fieldArray = createFieldArray(latDim, startPos, endPos, override);
+    renderField(fieldArray, fieldEl, latDim);
+    found = false;
+  });
+
+  initButton('find', () => {
+    // We expect the start cell (and soon the target cell) to be randomized via the UI.
+    // So we find it here, right before attempting to find the path
+    const startCell = fieldArray.find(({ type }) => type === 'start');
+    const targetCell = fieldArray.find(({ type }) => type === 'target');
+
+    findPath(fieldArray, startCell, targetCell, latDim, found);
+    // Prevent subsequent actions on click events until obstacle randomization occurs
+    found = true;
+  });
+};
+
+export { initUI };
