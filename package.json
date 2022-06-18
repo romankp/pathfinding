@@ -2,7 +2,7 @@
   "name": "pathfinding",
   "version": "1.0.0",
   "description": "Messing around with pathfinding algorithms",
-  "main": "script.js",
+  "main": "scripts/script.js",
   "scripts": {
     "start": "http-server ./ -c-1",
     "test": "echo \"Error: no test specified\" && exit 1"
