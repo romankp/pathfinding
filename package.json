@@ -5,7 +5,7 @@
   "main": "script.js",
   "scripts": {
     "start": "http-server ./ -c-1",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha"
   },
   "repository": {
     "type": "git",
@@ -22,6 +22,7 @@
   },
   "homepage": "https://github.com/romankp/pathfinding#readme",
   "devDependencies": {
-    "http-server": "14.0"
+    "http-server": "14.0",
+    "mocha": "10.0"
   }
 }
