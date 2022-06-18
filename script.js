@@ -2,9 +2,9 @@ import {
   createFieldArray,
   returnRandomID,
   returnNoncollidingID,
-} from './fieldData.js';
-import { renderField } from './fieldRender.js';
-import { initUI } from './ui.js';
+} from './modules/fieldData.js';
+import { renderField } from './modules/fieldRender.js';
+import { initUI } from './modules/ui.js';
 
 // Describe initial field options and construct field array.
 const latDim = 10;
