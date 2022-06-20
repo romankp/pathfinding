@@ -6,7 +6,9 @@ import {
 import { renderField } from './modules/fieldRender.mjs';
 import { initUI } from './modules/ui.mjs';
 
-// Describe initial field options and construct field array.
+const fieldEl = document.getElementById('field');
+
+// Describe initial field options and construct field array
 const latDim = 10;
 let startPos = returnRandomID(latDim);
 let endPos = returnNoncollidingID(latDim, startPos);
@@ -20,12 +22,7 @@ if (override.length < 1) {
   console.log(`end position ID -> ${endPos}`);
 }
 
-// Build initial field array
 let fieldArray = createFieldArray(latDim, startPos, endPos, override);
 
-// Render field visual
-const fieldEl = document.getElementById('field');
-
-// Workflow
 renderField(fieldArray, fieldEl, latDim);
 initUI(latDim, startPos, endPos, override, fieldArray, fieldEl);
