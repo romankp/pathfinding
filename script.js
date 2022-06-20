@@ -2,7 +2,7 @@ import {
   createFieldArray,
   returnRandomID,
   returnNoncollidingID,
-} from './modules/fieldData.js';
+} from './modules/fieldData.mjs';
 import { renderField } from './modules/fieldRender.js';
 import { initUI } from './modules/ui.js';
 

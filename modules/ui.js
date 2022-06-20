@@ -2,7 +2,7 @@ import {
   createFieldArray,
   returnRandomID,
   returnNoncollidingID,
-} from './fieldData.js';
+} from './fieldData.mjs';
 import { findPath } from './pathing.js';
 import { renderField } from './fieldRender.js';
 
