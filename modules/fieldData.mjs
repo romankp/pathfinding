@@ -8,10 +8,10 @@ const returnY = (dimVal, workingVal) => {
 };
 
 // Returns distance of cell from target with a bit of rounding
-const returnDistance = (dimVal, x, y, endPos) => {
+const returnDistance = (dimVal, x, y, targetId) => {
   // We use Math.abs here to make sure the number is returned positive
-  const xDist = Math.abs(returnX(dimVal, endPos) - x);
-  const yDist = Math.abs(returnY(dimVal, endPos) - y);
+  const xDist = Math.abs(returnX(dimVal, targetId) - x);
+  const yDist = Math.abs(returnY(dimVal, targetId) - y);
 
   if (xDist === 0) {
     return yDist;
@@ -80,6 +80,7 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
 export {
   returnX,
   returnY,
+  returnDistance,
   createFieldArray,
   returnRandomID,
   returnNoncollidingID,

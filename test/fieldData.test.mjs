@@ -1,19 +1,31 @@
 import assert from 'node:assert/strict';
-import { returnX, returnY } from '../modules/fieldData.mjs';
+import { returnX, returnY, returnDistance } from '../modules/fieldData.mjs';
 
 describe('fieldData', function () {
   describe('returnX', function () {
-    it('should return dimVal value when both arguments return 0 mod', function () {
+    it('returns dimVal value when both arguments are equal', function () {
       assert.equal(returnX(5, 5), 5);
     });
-    it('should return remained when arguments are different', function () {
+    it('returns remainder when arguments are different', function () {
       assert.equal(returnX(2, 5), 1);
     });
   });
 
   describe('returnY', function () {
-    it('should round up workingVal devided by dimVal', function () {
+    it('rounds the result of workingVal devided by dimVal up', function () {
       assert.equal(returnY(3, 5), 2);
+    });
+  });
+
+  describe('returnDistance', function () {
+    it('returns flat y distance when target coord is on the same x value', function () {
+      assert.equal(returnDistance(5, 5, 1, 15), 2);
+    });
+    it('returns flat x distance when target coord is on the same y value', function () {
+      assert.equal(returnDistance(5, 1, 1, 5), 4);
+    });
+    it('returns hypotenuse rounded to the third decimal when coordinate is not on same lateral planes as target', function () {
+      assert.equal(returnDistance(5, 1, 1, 15), 4.472);
     });
   });
 });
