@@ -3,8 +3,8 @@ import {
   returnRandomID,
   returnNoncollidingID,
 } from './fieldData.mjs';
-import { findPath } from './pathing.js';
-import { renderField } from './fieldRender.js';
+import { findPath } from './pathing.mjs';
+import { renderField } from './fieldRender.mjs';
 
 let found = false;
 

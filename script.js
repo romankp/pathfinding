@@ -3,8 +3,8 @@ import {
   returnRandomID,
   returnNoncollidingID,
 } from './modules/fieldData.mjs';
-import { renderField } from './modules/fieldRender.js';
-import { initUI } from './modules/ui.js';
+import { renderField } from './modules/fieldRender.mjs';
+import { initUI } from './modules/ui.mjs';
 
 // Describe initial field options and construct field array.
 const latDim = 10;

@@ -1,4 +1,4 @@
-import { paintCell } from './fieldRender.js';
+import { paintCell } from './fieldRender.mjs';
 
 let workingFieldArray = [];
 
