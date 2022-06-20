@@ -77,4 +77,10 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
   return finalArray;
 };
 
-export { returnX, createFieldArray, returnRandomID, returnNoncollidingID };
+export {
+  returnX,
+  returnY,
+  createFieldArray,
+  returnRandomID,
+  returnNoncollidingID,
+};

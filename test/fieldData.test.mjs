@@ -1,5 +1,5 @@
 import assert from 'node:assert/strict';
-import { returnX } from '../modules/fieldData.mjs';
+import { returnX, returnY } from '../modules/fieldData.mjs';
 
 describe('fieldData', function () {
   describe('returnX', function () {
@@ -8,6 +8,12 @@ describe('fieldData', function () {
     });
     it('should return remained when arguments are different', function () {
       assert.equal(returnX(2, 5), 1);
+    });
+  });
+
+  describe('returnY', function () {
+    it('should round up workingVal devided by dimVal', function () {
+      assert.equal(returnY(3, 5), 2);
     });
   });
 });
