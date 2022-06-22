@@ -5,6 +5,7 @@ import {
   returnDistance,
   returnCoordObj,
   randomizeObstacle,
+  returnRandomID,
 } from '../modules/fieldData.mjs';
 
 describe('fieldData', function () {
@@ -61,6 +62,15 @@ describe('fieldData', function () {
     });
     it('returns empty if random fraction is less than chanceVal', function () {
       assert.equal(randomizeObstacle(0), 'empty');
+    });
+  });
+
+  describe('returnRandomID', function () {
+    it('returns 1 if 0 is passed', function () {
+      assert.equal(returnRandomID(0), 1);
+    });
+    it('returns a value >= 1 if value > 0 is passed', function () {
+      assert.ok(returnRandomID(1) >= 1);
     });
   });
 });
