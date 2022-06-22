@@ -81,6 +81,7 @@ export {
   returnX,
   returnY,
   returnDistance,
+  returnCoordObj,
   createFieldArray,
   returnRandomID,
   returnNoncollidingID,

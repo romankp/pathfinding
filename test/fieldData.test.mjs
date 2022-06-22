@@ -1,5 +1,10 @@
 import assert from 'node:assert/strict';
-import { returnX, returnY, returnDistance } from '../modules/fieldData.mjs';
+import {
+  returnX,
+  returnY,
+  returnDistance,
+  returnCoordObj,
+} from '../modules/fieldData.mjs';
 
 describe('fieldData', function () {
   describe('returnX', function () {
@@ -26,6 +31,26 @@ describe('fieldData', function () {
     });
     it('returns hypotenuse rounded to the third decimal when coordinate is not on same lateral planes as target', function () {
       assert.equal(returnDistance(5, 1, 1, 15), 4.472);
+    });
+  });
+
+  describe('returnCoordObj', function () {
+    const expected = {
+      id: 1,
+      x: 1,
+      y: 1,
+      targetDistance: 4,
+      type: 'empty',
+      checked: false,
+      from: [],
+    };
+    it('returns expected object when coord is empty type', function () {
+      assert.deepEqual(returnCoordObj(1, 5, 'empty', 5), expected);
+    });
+    it('returns expected object when coord is start type', function () {
+      expected.type = 'start';
+      expected.targetDistance = 5;
+      assert.deepEqual(returnCoordObj(1, 5, 'start', 5), expected);
     });
   });
 });
