@@ -1,8 +1,6 @@
 const renderField = (fieldArray, fieldEl, dim) => {
-  const gridRepeat = `repeat(${dim}, auto)`;
-  let elStyle = fieldEl.style;
-  elStyle.gridTemplateColumns = gridRepeat;
-  elStyle.gridTemplateRows = gridRepeat;
+  // Set css variable on field element
+  fieldEl.style.setProperty('--dim-val', dim);
 
   // Remove all previously rendered li elements.
   // We take this shortcut because we're certain the child lis

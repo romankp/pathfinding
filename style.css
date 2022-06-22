@@ -22,6 +22,8 @@ body {
 /* Field */
 #field {
   display: grid;
+  grid-template-columns: repeat(var(--dim-val, 10), auto);
+  grid-template-rows: repeat(var(--dim-val, 10), auto);
   width: 400px;
   height: 400px;
   list-style: none;
