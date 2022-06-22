@@ -39,8 +39,8 @@ const returnCoordObj = (i, dimVal, type, endPos) => {
   };
 };
 
-const randomizeObstacle = () => {
-  return Math.random() > 0.35 ? 'empty' : 'obstacle';
+const randomizeObstacle = chanceVal => {
+  return Math.random() > chanceVal ? 'empty' : 'obstacle';
 };
 
 const returnRandomID = latDim => {
@@ -68,7 +68,9 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
       } else if (i === endPos) {
         finalArray.push(returnCoordObj(i, dimVal, 'target', endPos));
       } else {
-        finalArray.push(returnCoordObj(i, dimVal, randomizeObstacle(), endPos));
+        finalArray.push(
+          returnCoordObj(i, dimVal, randomizeObstacle(0.35), endPos)
+        );
       }
     }
   }
@@ -82,6 +84,7 @@ export {
   returnY,
   returnDistance,
   returnCoordObj,
+  randomizeObstacle,
   createFieldArray,
   returnRandomID,
   returnNoncollidingID,

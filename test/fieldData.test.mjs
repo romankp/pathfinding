@@ -4,6 +4,7 @@ import {
   returnY,
   returnDistance,
   returnCoordObj,
+  randomizeObstacle,
 } from '../modules/fieldData.mjs';
 
 describe('fieldData', function () {
@@ -51,6 +52,15 @@ describe('fieldData', function () {
       expected.type = 'start';
       expected.targetDistance = 5;
       assert.deepEqual(returnCoordObj(1, 5, 'start', 5), expected);
+    });
+  });
+
+  describe('randomizeObstacle', function () {
+    it('returns obstacle if random fraction is less than chanceVal', function () {
+      assert.equal(randomizeObstacle(1.1), 'obstacle');
+    });
+    it('returns empty if random fraction is less than chanceVal', function () {
+      assert.equal(randomizeObstacle(0), 'empty');
     });
   });
 });
