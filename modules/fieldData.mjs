@@ -1,3 +1,5 @@
+const obstacleChance = 35 / 100;
+
 const returnX = (dimVal, workingVal) => {
   const xRemainder = workingVal % dimVal;
   return xRemainder === 0 ? dimVal : xRemainder;
@@ -69,7 +71,7 @@ const createFieldArray = (dimVal, startPos, endPos, override) => {
         finalArray.push(returnCoordObj(i, dimVal, 'target', endPos));
       } else {
         finalArray.push(
-          returnCoordObj(i, dimVal, randomizeObstacle(0.35), endPos)
+          returnCoordObj(i, dimVal, randomizeObstacle(obstacleChance), endPos)
         );
       }
     }
