@@ -115,7 +115,11 @@ const checkFork = (moveOptions, latDim, workingFieldArray) => {
   return bWeighted ? moveOptions[1] : moveOptions[0];
 };
 
-const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
+const hold = ms => {
+  return new Promise(resolve => setTimeout(resolve, ms));
+};
+
+const findPath = async (fieldArray, startCell, targetCell, latDim, found) => {
   if (found) {
     return;
   }
@@ -128,6 +132,7 @@ const findPath = (fieldArray, startCell, targetCell, latDim, found) => {
   workingFieldArray = fieldArray;
 
   while (!targetReached && loopCount < loopLimit) {
+    await hold(200);
     const currentID = path[path.length - 1].id;
     let moveOptions = filterOptionIDs(
       returnOptionIDsArray(currentID, latDim),
