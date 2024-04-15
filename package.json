@@ -23,6 +23,6 @@
   "homepage": "https://github.com/romankp/pathfinding#readme",
   "devDependencies": {
     "http-server": "14.1",
-    "mocha": "10.0"
+    "mocha": "^10.4.0"
   }
 }
