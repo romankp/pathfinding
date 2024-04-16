@@ -17,5 +17,8 @@ const override = [];
 
 let fieldArray = createFieldArray(latDim, startPos, endPos, override);
 
+// Expose the field array to the window for manual troubleshooting
+window.fieldArray = fieldArray;
+
 renderField(fieldArray, fieldEl, latDim);
 initUI(latDim, startPos, endPos, override, fieldArray, fieldEl);
